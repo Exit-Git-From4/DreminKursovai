@@ -1,0 +1,40 @@
+﻿<Window x:Class="DreminKursovai.View.WindowEnter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DreminKursovai"
+        mc:Ignorable="d"
+        Title="WindowEnter" Height="275" Width="360" MinHeight="275" MinWidth="360" MaxHeight="275" MaxWidth="360">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Менеджер" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,30">
+                <TextBox Name="tb" Width="200" BorderBrush="Black"/>
+                <TextBlock Foreground="Black"
+                   Text="Пароль"
+                   IsHitTestVisible="False"
+                   MaxWidth="{Binding ActualWidth, ElementName=tb}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsKeyboardFocused, ElementName=tb}"
+                                           Value="False"/>
+                                        <Condition Binding="{Binding Text, ElementName=tb}"
+                                           Value="{x:Static sys:String.Empty}"
+                                           xmlns:sys="clr-namespace:System;assembly=mscorlib"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+            <Button Content="Войти" Height="35" Width="200" FontSize="16"/>
+        </StackPanel>
+    </Grid>
+</Window>
