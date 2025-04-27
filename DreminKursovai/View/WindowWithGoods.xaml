@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DreminKursovai.View"
         mc:Ignorable="d"
-        Title="WindowWithGoods" Height="450" Width="800">
-    <Grid>
-        
+        Title="Окно с товарами" Height="450" Width="800">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <TextBlock Text="Поиск:"/>
+            <TextBox Width="150" Margin="5,0,0,0"/>
+        </StackPanel>
+        <ListView Grid.Row="1">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить" />
+                    <MenuItem Header="Редоктировать"  />
+                    <MenuItem Header="Удалить" />
+                    <MenuItem Header="Открыть список авторов"  />
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Оборудование" />
+                    <GridViewColumn Header="Модель" />
+                    <GridViewColumn Header="Цена" />
+                    <GridViewColumn Header="Год релиза"/>
+                    <GridViewColumn Header="Производитель"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

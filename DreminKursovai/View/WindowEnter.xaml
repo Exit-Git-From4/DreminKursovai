@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DreminKursovai"
         mc:Ignorable="d"
-        Title="WindowEnter" Height="275" Width="360" MinHeight="275" MinWidth="360" MaxHeight="275" MaxWidth="360">
+        Title="Окно входа" Height="275" Width="360" MinHeight="275" MinWidth="360" MaxHeight="275" MaxWidth="360">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Менеджер" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,30">
-                <TextBox Name="tb" Width="200" BorderBrush="Black"/>
-                <TextBlock Foreground="Black"
+                <TextBox Name="tb" Width="200" BorderBrush="Black" />
+                <TextBlock Foreground="Black" 
                    Text="Пароль"
                    IsHitTestVisible="False"
                    MaxWidth="{Binding ActualWidth, ElementName=tb}">
@@ -34,7 +34,8 @@
                     </TextBlock.Style>
                 </TextBlock>
             </Grid>
-            <Button Content="Войти" Height="35" Width="200" FontSize="16"/>
+            <Button Content="Войти" Height="35" Width="200" FontSize="16" Click="Button_Click"/>
         </StackPanel>
+        
     </Grid>
 </Window>
