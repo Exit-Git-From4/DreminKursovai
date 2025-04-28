@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DreminKursovai.Model
 {
+    //Заказ
     public class Order
     {
         public int Id { get; set; }
