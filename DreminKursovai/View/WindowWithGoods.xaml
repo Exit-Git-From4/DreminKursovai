@@ -31,6 +31,7 @@
                     <GridViewColumn Header="Цена" />
                     <GridViewColumn Header="Год релиза"/>
                     <GridViewColumn Header="Производитель"/>
+                    <GridViewColumn Header="Страна"/>
                 </GridView>
             </ListView.View>
         </ListView>
