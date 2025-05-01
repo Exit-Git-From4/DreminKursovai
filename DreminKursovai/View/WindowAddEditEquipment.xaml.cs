@@ -19,7 +19,7 @@ namespace DreminKursovai.View
     /// </summary>
     public partial class WindowAddEditEquipment : Window
     {
-        public WindowAddEditEquipment()
+        public WindowAddEditEquipment(Model.Equipment book)
         {
             InitializeComponent();
         }

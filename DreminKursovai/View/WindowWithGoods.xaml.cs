@@ -23,6 +23,7 @@ namespace DreminKursovai.View
         public WindowWithGoods()
         {
             InitializeComponent();
+            DataContext = new WindowWithGoodsMvvm();
         }
     }
 }

@@ -105,8 +105,79 @@ namespace DreminKursovai.DB
             List<Equipment> result = new List<Equipment>();
             if (connection == null) return result; if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand("SELECT e.`Id` ,  FROM Equipment e JOIN Manufacturer m ON e.ManufacturerId = m.Id JOIN EquipmentType et ON e.EquipmentTypeId = et.Id");
+                var command = connection.CreateCommand("SELECT e.`Id` , `Model`, `Value` , `ReleaseYear` , `ManufacturerId` , `EquipmentTypeId` , m.`Title` , m.`Сountry` , `eq.`Title` FROM Equipment e JOIN Manufacturer m ON e.ManufacturerId = m.Id JOIN EquipmentType et ON e.EquipmentTypeId = et.Id");
+                try
+                {
+                    MySqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        int id = dr.GetInt32(0);
+                        string model = string.Empty;
+                        if (!dr.IsDBNull(1))
+                            model = dr.GetString("Model");
+                        decimal value = 0;
+                        if (!dr.IsDBNull(2))
+                            value = dr.GetDecimal("Value");
+                        int releaseYear = 0;
+                        if (!dr.IsDBNull(3))
+                            releaseYear = dr.GetInt16("ReleaseYear");
+                        int manufacturerId = dr.GetInt16("ManufacturerId");
+                        int equipmentTypeId = dr.GetInt16("EquipmentTypeId");
+
+                        string title = string.Empty;
+                        if (!dr.IsDBNull(6))
+                            title = dr.GetString("Title");
+                        string country = string.Empty;
+                        if (!dr.IsDBNull(7))
+                            country = dr.GetString("Сountry");
+
+                        string Titles = string.Empty;
+                        if (!dr.IsDBNull(8))
+                            Titles = dr.GetString("Title");
+
+                        result.Add(new Equipment()
+                        {
+                            Id = id,
+                            Model = model,
+                            Value = value,
+                            ReleaseYear = releaseYear,
+                            ManufacturerId = manufacturerId,
+                            EquipmentTypeId = equipmentTypeId,
+                        });
+
+                        Manufacturer manufacturer = new Manufacturer()
+                        {
+                            Id = manufacturerId,
+                            Title = title,
+                            Country = country,
+                        };
+
+                        EquipmentType equipmentType = new EquipmentType()
+                        {
+                            Id = equipmentTypeId,
+                            Title = title,
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
+            connection.CloseConnection();
+            return result;
+        }
+        static EquipmentDB db;
+        public static EquipmentDB GetDb()
+        {
+            if (db == null)
+                db = new EquipmentDB(DBConnection.GetDbConnection());
+            return db;
+        }
+
+        internal void Remove(Equipment selectedEquipment)
+        {
+            throw new NotImplementedException();
         }
     }
 

@@ -21,8 +21,6 @@ namespace DreminKursovai.View
         public WindowEnter()
         {
             InitializeComponent();
-
-            DataContext = new WindowWithGoodsMvvm();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

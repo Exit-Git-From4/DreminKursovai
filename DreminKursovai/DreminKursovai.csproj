@@ -9,11 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\bg6b2.jpg" />
+    <None Remove="View\kurs.jpeg" />
+    <None Remove="View\kurs2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MySqlConnector" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\bg6b2.jpg" />
+    <Resource Include="View\kurs.jpeg" />
+    <Resource Include="View\kurs2.jpg" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DreminKursovai.View"
         mc:Ignorable="d"
-        Title="Окно с товарами" Height="450" Width="800">
+        Title="Окно с товарами" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -18,20 +18,23 @@
         <ListView Grid.Row="1">
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Добавить" />
-                    <MenuItem Header="Редоктировать"  />
-                    <MenuItem Header="Удалить" />
-                    <MenuItem Header="Открыть список авторов"  />
+                    <MenuItem Header="Добавить" Command="{Binding Add}"/>
+                    <MenuItem Header="Редоктировать" Command="{Binding Update}"/>
+                    <MenuItem Header="Удалить" Command="{Binding Remove}"/>
+                    <MenuItem Header="Список параметров товара" Command="{Binding OpenListParametrsEquipment}"/>
+                    <MenuItem Header="Список производителей"/>
+                    <MenuItem Header="Список заказов"/>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Оборудование" />
-                    <GridViewColumn Header="Модель" />
-                    <GridViewColumn Header="Цена" />
-                    <GridViewColumn Header="Год релиза"/>
-                    <GridViewColumn Header="Производитель"/>
-                    <GridViewColumn Header="Страна"/>
+                    <GridViewColumn Header="Название" Width="100"/>
+                    <GridViewColumn Header="Тип" Width="100"/>
+                    <GridViewColumn Header="Модель" Width="100"/>
+                    <GridViewColumn Header="Цена" Width="100"/>
+                    <GridViewColumn Header="Год релиза" Width="100"/>
+                    <GridViewColumn Header="Производитель" Width="100"/>
+                    <GridViewColumn Header="Страна" Width="100"/>
                 </GridView>
             </ListView.View>
         </ListView>
