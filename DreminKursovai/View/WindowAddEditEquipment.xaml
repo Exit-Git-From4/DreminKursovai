@@ -53,13 +53,6 @@
         <TextBox Margin="5" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left"/>
         <ComboBox Margin="5" Grid.Column="1" Grid.Row="5" Width="100" HorizontalAlignment="Left" Background="White" />
         <TextBox Margin="5" Grid.Column="1" Grid.Row="6" Width="100" HorizontalAlignment="Left"/>
-        <Button Content="Сохранить" Grid.ColumnSpan="2" Grid.Row="8" Width="210" Height="35">
-            <Button.Background>
-                <RadialGradientBrush>
-                    <GradientStop Color="#FF73BB6D"/>
-                    <GradientStop Color="#FFFFD5D5" Offset="0.685"/>
-                </RadialGradientBrush>
-            </Button.Background>
-        </Button>
+        <Button Content="Сохранить" Grid.ColumnSpan="2" Grid.Row="8" Width="210" Height="35" BorderBrush="{x:Null}" Background="{x:Null}"/>
     </Grid>
 </Window>

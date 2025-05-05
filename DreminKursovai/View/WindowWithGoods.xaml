@@ -15,7 +15,7 @@
             <TextBlock Text="Поиск:"/>
             <TextBox Width="150" Margin="5,0,0,0"/>
         </StackPanel>
-        <ListView Grid.Row="1">
+        <ListView Grid.Row="1" ItemsSource="{Binding Equipments}">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить" Command="{Binding Add}"/>
@@ -28,13 +28,13 @@
             </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Название" Width="100"/>
-                    <GridViewColumn Header="Тип" Width="100"/>
-                    <GridViewColumn Header="Модель" Width="100"/>
-                    <GridViewColumn Header="Цена" Width="100"/>
-                    <GridViewColumn Header="Год релиза" Width="100"/>
-                    <GridViewColumn Header="Производитель" Width="100"/>
-                    <GridViewColumn Header="Страна" Width="100"/>
+                    <GridViewColumn Header="Название" Width="100" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Тип" Width="100" DisplayMemberBinding="{Binding EquipmentTypeId.Title}"/>
+                    <GridViewColumn Header="Модель" Width="100" DisplayMemberBinding="{Binding Model}"/>
+                    <GridViewColumn Header="Цена" Width="100" DisplayMemberBinding="{Binding Value}"/>
+                    <GridViewColumn Header="Год релиза" Width="100" DisplayMemberBinding="{Binding ReleaseYear}"/>
+                    <GridViewColumn Header="Производитель" Width="100" DisplayMemberBinding="{Binding ManufacturerId.Title}"/>
+                    <GridViewColumn Header="Страна" Width="100" DisplayMemberBinding="{Binding ManufacturerId.Сountry}"/>
                 </GridView>
             </ListView.View>
         </ListView>

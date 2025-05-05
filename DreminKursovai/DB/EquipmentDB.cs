@@ -35,6 +35,7 @@ namespace DreminKursovai.DB
                         {
                             var equipment = new Equipment();
                             equipment.Id = dr.GetInt32("Id");
+                            equipment.Title = dr.GetString("Title");
                             equipment.Model = dr.GetString("Model");
                             equipment.Value = dr.GetDecimal("Value");
                             equipment.ReleaseYear = dr.GetInt32("ReleasYear");
@@ -58,7 +59,10 @@ namespace DreminKursovai.DB
                                 equipmentType.Title = dr.GetString("Title");
                                 equipmentTypes.Add(equipmentType);
                             }
+                            equipment.EquipmentType = equipmentType;
+                            equipment.Manufacturer = manufacturer;
                             equipments.Add(equipment);
+
                         }
                     }
                     connection.CloseConnection();
@@ -73,7 +77,8 @@ namespace DreminKursovai.DB
                 return result;
             if (connection.OpenConnection())
             {
-                MySqlCommand cmd = connection.CreateCommand("insert into `Equipment` Values(0,@Model,@Value,@ReleaseYear,@ManufacturerId,@EquipmentTypeId);select LAST_INSERT_ID();");
+                MySqlCommand cmd = connection.CreateCommand("insert into `Equipment` Values(0,@Title,@Model,@Value,@ReleaseYear,@ManufacturerId,@EquipmentTypeId);select LAST_INSERT_ID();");
+                cmd.Parameters.Add(new MySqlParameter("Title", gogo.Title));
                 cmd.Parameters.Add(new MySqlParameter("Model", gogo.Model));
                 cmd.Parameters.Add(new MySqlParameter("Value", gogo.Value));
                 cmd.Parameters.Add(new MySqlParameter("ReleaseYear", gogo.ReleaseYear));
@@ -105,39 +110,43 @@ namespace DreminKursovai.DB
             List<Equipment> result = new List<Equipment>();
             if (connection == null) return result; if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand("SELECT e.`Id` , `Model`, `Value` , `ReleaseYear` , `ManufacturerId` , `EquipmentTypeId` , m.`Title` , m.`Сountry` , `eq.`Title` FROM Equipment e JOIN Manufacturer m ON e.ManufacturerId = m.Id JOIN EquipmentType et ON e.EquipmentTypeId = et.Id");
+                var command = connection.CreateCommand("SELECT * FROM Equipment e JOIN Manufacturer m ON e.ManufacturerId = m.Id JOIN EquipmentType et ON e.EquipmentTypeId = et.Id");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
                     while (dr.Read())
                     {
                         int id = dr.GetInt32(0);
-                        string model = string.Empty;
+                        string titless = string.Empty;
                         if (!dr.IsDBNull(1))
+                            titless = dr.GetString("Title");
+                        string model = string.Empty;
+                        if (!dr.IsDBNull(2))
                             model = dr.GetString("Model");
                         decimal value = 0;
-                        if (!dr.IsDBNull(2))
+                        if (!dr.IsDBNull(3))
                             value = dr.GetDecimal("Value");
                         int releaseYear = 0;
-                        if (!dr.IsDBNull(3))
+                        if (!dr.IsDBNull(4))
                             releaseYear = dr.GetInt16("ReleaseYear");
                         int manufacturerId = dr.GetInt16("ManufacturerId");
                         int equipmentTypeId = dr.GetInt16("EquipmentTypeId");
 
                         string title = string.Empty;
-                        if (!dr.IsDBNull(6))
+                        if (!dr.IsDBNull(7))
                             title = dr.GetString("Title");
                         string country = string.Empty;
-                        if (!dr.IsDBNull(7))
+                        if (!dr.IsDBNull(8))
                             country = dr.GetString("Сountry");
 
                         string Titles = string.Empty;
-                        if (!dr.IsDBNull(8))
+                        if (!dr.IsDBNull(9))
                             Titles = dr.GetString("Title");
 
                         result.Add(new Equipment()
                         {
                             Id = id,
+                            Title = title,
                             Model = model,
                             Value = value,
                             ReleaseYear = releaseYear,
