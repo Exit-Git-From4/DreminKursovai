@@ -110,7 +110,7 @@ namespace DreminKursovai.DB
             List<Equipment> result = new List<Equipment>();
             if (connection == null) return result; if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand("SELECT * FROM Equipment e JOIN Manufacturer m ON e.ManufacturerId = m.Id JOIN EquipmentType et ON e.EquipmentTypeId = et.Id");
+                var command = connection.CreateCommand("SELECT e.`Id` AS eid, e.`Title` AS etitle,e.`Model` AS emodel,e.`Value` AS evalue,e.`ReleaseYear` AS ereleaseYear,e.ManufacturerId, m.Title , m.Сountry ,  e.EquipmentTypeId ,et.Title FROM Equipment e JOIN Manufacturer m ON e.ManufacturerId = m.Id JOIN EquipmentType et ON e.EquipmentTypeId = et.Id");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
@@ -130,34 +130,24 @@ namespace DreminKursovai.DB
                         if (!dr.IsDBNull(4))
                             releaseYear = dr.GetInt16("ReleaseYear");
                         int manufacturerId = dr.GetInt16("ManufacturerId");
-                        int equipmentTypeId = dr.GetInt16("EquipmentTypeId");
-
+                        
                         string title = string.Empty;
                         if (!dr.IsDBNull(7))
                             title = dr.GetString("Title");
                         string country = string.Empty;
                         if (!dr.IsDBNull(8))
                             country = dr.GetString("Сountry");
+                        int equipmentTypeId = dr.GetInt16("EquipmentTypeId");
 
                         string Titles = string.Empty;
                         if (!dr.IsDBNull(9))
                             Titles = dr.GetString("Title");
 
-                        result.Add(new Equipment()
-                        {
-                            Id = id,
-                            Title = title,
-                            Model = model,
-                            Value = value,
-                            ReleaseYear = releaseYear,
-                            ManufacturerId = manufacturerId,
-                            EquipmentTypeId = equipmentTypeId,
-                        });
 
                         Manufacturer manufacturer = new Manufacturer()
                         {
                             Id = manufacturerId,
-                            Title = title,
+                            Title = titless,
                             Country = country,
                         };
 
@@ -166,6 +156,19 @@ namespace DreminKursovai.DB
                             Id = equipmentTypeId,
                             Title = title,
                         };
+
+                        result.Add(new Equipment()
+                        {
+                            Id = id,
+                            Title = Titles,
+                            Model = model,
+                            Value = value,
+                            ReleaseYear = releaseYear,
+                            ManufacturerId = manufacturerId,
+                            Manufacturer = manufacturer,
+                            EquipmentTypeId = equipmentTypeId,
+                            EquipmentType = equipmentType
+                        });
                     }
                 }
                 catch (Exception ex)
