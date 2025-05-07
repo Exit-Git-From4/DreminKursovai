@@ -1,0 +1,27 @@
+﻿<Window x:Class="DreminKursovai.View.ListManufacturerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DreminKursovai.View"
+        mc:Ignorable="d"
+        Title="Окно с производителями" Height="450" Width="215">
+    <Grid>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Manufacturers}" SelectedItem="{Binding SelectedManufacturer}" SelectionChanged="ListView_SelectionChanged">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить" Command="{Binding Add}"/>
+                    <MenuItem Header="Редоктировать" Command="{Binding Edit}"/>
+                    <MenuItem Header="Удалить" Command="{Binding Remove}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Название" Width="100" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Страна" Width="100" DisplayMemberBinding="{Binding Сountry}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

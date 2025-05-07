@@ -48,7 +48,7 @@ namespace DreminKursovai.DB
                                 manufacturer= new Manufacturer();
                                 manufacturer.Id = equipment.ManufacturerId;
                                 manufacturer.Title = dr.GetString("Title");
-                                manufacturer.Country = dr.GetString("Country");
+                                manufacturer.Сountry = dr.GetString("Country");
                                 manufacturers.Add(manufacturer);
                             }
                             var equipmentType = equipmentTypes.FirstOrDefault(d => d.Id == equipment.ManufacturerId);
@@ -110,7 +110,7 @@ namespace DreminKursovai.DB
             List<Equipment> result = new List<Equipment>();
             if (connection == null) return result; if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand("SELECT e.`Id` AS eid, e.`Title` AS etitle,e.`Model` AS emodel,e.`Value` AS evalue,e.`ReleaseYear` AS ereleaseYear,e.ManufacturerId, m.Title , m.Сountry ,  e.EquipmentTypeId ,et.Title FROM Equipment e JOIN Manufacturer m ON e.ManufacturerId = m.Id JOIN EquipmentType et ON e.EquipmentTypeId = et.Id");
+                var command = connection.CreateCommand("SELECT e.`Id` AS eid, e.`Title` AS etitle,e.`Model` AS emodel,e.`Value` AS evalue,e.`ReleaseYear` AS ereleaseYear,e.`ManufacturerId` AS emanufacturerId, m.Title AS mtitle, m.`Сountry` AS mcoutry,  e.EquipmentTypeId AS eequipmentTypeId,et.Title AS  ettitle \r\nFROM Equipment e JOIN Manufacturer m ON e.ManufacturerId = m.Id JOIN EquipmentType et ON e.EquipmentTypeId = et.Id");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
@@ -119,48 +119,48 @@ namespace DreminKursovai.DB
                         int id = dr.GetInt32(0);
                         string titless = string.Empty;
                         if (!dr.IsDBNull(1))
-                            titless = dr.GetString("Title");
+                            titless = dr.GetString("etitle");
                         string model = string.Empty;
                         if (!dr.IsDBNull(2))
-                            model = dr.GetString("Model");
+                            model = dr.GetString("emodel");
                         decimal value = 0;
                         if (!dr.IsDBNull(3))
-                            value = dr.GetDecimal("Value");
+                            value = dr.GetDecimal("evalue");
                         int releaseYear = 0;
                         if (!dr.IsDBNull(4))
-                            releaseYear = dr.GetInt16("ReleaseYear");
-                        int manufacturerId = dr.GetInt16("ManufacturerId");
+                            releaseYear = dr.GetInt16("ereleaseYear");
+                        int manufacturerId = dr.GetInt16("emanufacturerId");
                         
                         string title = string.Empty;
                         if (!dr.IsDBNull(7))
-                            title = dr.GetString("Title");
+                            title = dr.GetString("mtitle");
                         string country = string.Empty;
                         if (!dr.IsDBNull(8))
-                            country = dr.GetString("Сountry");
-                        int equipmentTypeId = dr.GetInt16("EquipmentTypeId");
+                            country = dr.GetString("mcoutry");
+                        int equipmentTypeId = dr.GetInt16("eequipmentTypeId");
 
                         string Titles = string.Empty;
                         if (!dr.IsDBNull(9))
-                            Titles = dr.GetString("Title");
+                            Titles = dr.GetString("ettitle");
 
 
                         Manufacturer manufacturer = new Manufacturer()
                         {
                             Id = manufacturerId,
-                            Title = titless,
-                            Country = country,
+                            Title = title,
+                            Сountry = country,
                         };
 
                         EquipmentType equipmentType = new EquipmentType()
                         {
                             Id = equipmentTypeId,
-                            Title = title,
+                            Title = Titles,
                         };
 
                         result.Add(new Equipment()
                         {
                             Id = id,
-                            Title = Titles,
+                            Title = titless,
                             Model = model,
                             Value = value,
                             ReleaseYear = releaseYear,
@@ -187,9 +187,27 @@ namespace DreminKursovai.DB
             return db;
         }
 
-        internal void Remove(Equipment selectedEquipment)
+        internal bool Remove(Equipment selectedEquipment)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            if (connection == null)
+                return result;
+
+            if (connection.OpenConnection())
+            {
+                var mc = connection.CreateCommand($"delete from `Equipment` where `id` = {selectedEquipment.Id}");
+                try
+                {
+                    mc.ExecuteNonQuery();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            connection.CloseConnection();
+            return result;
         }
     }
 

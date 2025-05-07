@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DreminKursovai.VMTools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,13 +16,17 @@ using System.Windows.Shapes;
 namespace DreminKursovai.View
 {
     /// <summary>
-    /// Логика взаимодействия для WindowAddEditManufacturers.xaml
+    /// Логика взаимодействия для ListManufacturerWindow.xaml
     /// </summary>
-    public partial class WindowAddEditManufacturers : Window
+    public partial class ListManufacturerWindow : Window
     {
-        public WindowAddEditManufacturers()
+        public ListManufacturerWindow()
         {
             InitializeComponent();
+
+            DataContext = new WindowManufacturerMvvm();
         }
+
+        
     }
 }

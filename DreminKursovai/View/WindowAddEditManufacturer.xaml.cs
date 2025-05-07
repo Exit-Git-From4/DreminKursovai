@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace DreminKursovai.View
 {
     /// <summary>
-    /// Логика взаимодействия для WindowAddEditParameters.xaml
+    /// Логика взаимодействия для WindowAddEditManufacturer.xaml
     /// </summary>
-    public partial class WindowAddEditParameters : Window
+    public partial class WindowAddEditManufacturer : Window
     {
-        public WindowAddEditParameters()
+        public WindowAddEditManufacturer()
         {
             InitializeComponent();
         }

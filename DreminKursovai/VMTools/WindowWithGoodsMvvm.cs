@@ -56,8 +56,8 @@ namespace DreminKursovai.VMTools
             SelectAll();
             Update = new CommandMvvm(() =>
             {
-                Equipment book = SelectedEquipment;
-                new WindowAddEditEquipment(book).ShowDialog();
+                Equipment equipment = SelectedEquipment;
+                new WindowAddEditEquipment(equipment).ShowDialog();
                 SelectAll();
             }, () => SelectedEquipment != null);
 
@@ -70,18 +70,24 @@ namespace DreminKursovai.VMTools
 
             Add = new CommandMvvm(() =>
             {
-                Equipment book = new Equipment();
-                new WindowAddEditEquipment(book).ShowDialog();
+                Equipment equipment = new Equipment();
+                new WindowAddEditEquipment(equipment).ShowDialog();
                 SelectAll();
             }, () => true);
 
-            OpenListParametrsEquipment = new CommandMvvm(() =>
+            //OpenListParametrsEquipment = new CommandMvvm(() =>
+            //{
+            //    new ParameterListWindow().ShowDialog();
+            //    SelectAll();
+            //}, () => true);
+
+            OpenListManufacturer = new CommandMvvm(() =>
             {
-                new ParameterListWindow().ShowDialog();
+                Equipment equipment = new Equipment();
+                new ListManufacturerWindow().ShowDialog();
                 SelectAll();
             }, () => true);
 
-            Update = new CommandMvvm(SelectAll, () => true);
         }
 
         private void SelectAll()

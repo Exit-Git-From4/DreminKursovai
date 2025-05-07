@@ -15,14 +15,14 @@
             <TextBlock Text="Поиск:"/>
             <TextBox Width="150" Margin="5,0,0,0"/>
         </StackPanel>
-        <ListView Grid.Row="1" ItemsSource="{Binding Equipments}">
+        <ListView Grid.Row="1" ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment}">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить" Command="{Binding Add}"/>
                     <MenuItem Header="Редоктировать" Command="{Binding Update}"/>
                     <MenuItem Header="Удалить" Command="{Binding Remove}"/>
                     <MenuItem Header="Список параметров товара" Command="{Binding OpenListParametrsEquipment}"/>
-                    <MenuItem Header="Список производителей"/>
+                    <MenuItem Header="Список производителей" Command="{Binding OpenListManufacturer}"/>
                     <MenuItem Header="Список заказов"/>
                 </ContextMenu>
             </ListView.ContextMenu>
