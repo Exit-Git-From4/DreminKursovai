@@ -27,6 +27,9 @@ namespace DreminKursovai.View
             DataContext = new WindowManufacturerMvvm();
         }
 
-        
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

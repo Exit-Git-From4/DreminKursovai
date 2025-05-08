@@ -8,7 +8,7 @@
         Title="Окно с производителями" Height="450" Width="215">
     <Grid>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Manufacturers}" SelectedItem="{Binding SelectedManufacturer}" SelectionChanged="ListView_SelectionChanged">
+        <ListView Grid.Row="1" ItemsSource="{Binding Manufacturers}" SelectedItem="{Binding SelectedManufacturer}">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить" Command="{Binding Add}"/>

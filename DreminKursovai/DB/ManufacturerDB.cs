@@ -114,7 +114,31 @@ namespace DreminKursovai.DB
                 db = new ManufacturerDB(DBConnection.GetDbConnection());
             return db;
         }
+        internal bool Update(Manufacturer edit)
+        {
+            bool result = false;
+            if (connection ==null)
+                return result;
+            
+            if (connection.OpenConnection())
+            {
+                var mc = connection.CreateCommand($"update `Manufacturer` set `Title`=@Title, `Country`=@Country where `Id` = {edit.Id}");
+                mc.Parameters.Add(new MySqlParameter("Title", edit.Title));
+                mc.Parameters.Add(new MySqlParameter("Сountry", edit.Сountry));
 
+                try
+                {
+                    mc.ExecuteNonQuery();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message );
+                }
+            }
+            connection.CloseConnection() ;
+            return result;
+        }
         internal bool Remove(Manufacturer selectedManufacturer)
         {
             bool result = false;
