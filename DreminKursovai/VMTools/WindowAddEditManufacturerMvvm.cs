@@ -21,21 +21,21 @@ namespace DreminKursovai.VMTools
 
         public WindowAddEditManufacturerMvvm()
         {
-            SelectAll();
-            Save = new CommandMvvm(() =>
-            {
-                if (SelectedManufacturer.Id > 0)
-                    ManufacturerDB.GetDB().Update(SelectedManufacturer);
-                else
-                    ManufacturerDB.GetDB().Insert(SelectedManufacturer);
-                close();
-            }, () =>
-            SelectedManufacturer != null &&
-            !string.IsNullOrWhiteSpace(SelectedManufacturer.Title) &&
-            SelectedManufacturer.Title.Length <= 255 &&
-            !string.IsNullOrWhiteSpace(SelectedManufacturer.Сountry) &&
-            SelectedManufacturer.Сountry.Length <= 255
-            );
+            //SelectAll();
+            //Save = new CommandMvvm(() =>
+            //{
+            //    if (SelectedManufacturer.Id > 0)
+            //        ManufacturerDB.GetDB().Update(SelectedManufacturer);
+            //    else
+            //        ManufacturerDB.GetDB().Insert(SelectedManufacturer);
+            //    close();
+            //}, () =>
+            //SelectedManufacturer != null &&
+            //!string.IsNullOrWhiteSpace(SelectedManufacturer.Title) &&
+            //SelectedManufacturer.Title.Length <= 255 &&
+            //!string.IsNullOrWhiteSpace(SelectedManufacturer.Сountry) &&
+            //SelectedManufacturer.Сountry.Length <= 255
+            //);
         }
         private void SelectAll()
         {

@@ -1,39 +1,37 @@
-﻿using DreminKursovai.Model;
-using MySqlConnector;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using DreminKursovai.Model;
+using MySqlConnector;
 
 namespace DreminKursovai.DB
 {
-    public class ManufacturerDB
+    public class EquipmentTypeDB
     {
         DBConnection connection;
-        private ManufacturerDB(DBConnection connection)
+        private EquipmentTypeDB(DBConnection connectionn)
         {
-            this.connection = connection;
+            this.connection = connectionn;
         }
-
-        public List<Manufacturer> SearchManufacturer(string searchh)
+        public List<EquipmentType> SearchEquipmentType(string searchhh)
         {
-            List<Manufacturer> list = new List<Manufacturer>();
-            string GH = $"SELECT * FROM Manufacturer m";
+            List<EquipmentType> list = new();
+            string gh = $"SELECT *  FROM EquipmentType et";
             if (connection.OpenConnection())
             {
-                using (var mv = connection.CreateCommand(GH))
+                using (var mb = connection.CreateCommand(gh))
                 {
-                    mv.Parameters.Add(new MySqlParameter("searchh", $"%{searchh}%"));
-                    using (var m = mv.ExecuteReader())
+                    mb.Parameters.Add(new MySqlParameter("searchhh", $"%{searchhh}%"));
+                    using (var m = mb.ExecuteReader())
                     {
                         while (m.Read())
                         {
-                            var manufacturer = new Manufacturer();
-                            manufacturer.Id = m.GetInt32("Id");
-                            manufacturer.Title = m.GetString("Title");
-                            manufacturer.Сountry = m.GetString("Сountry");
+                            var equipmentType = new EquipmentType();
+                            equipmentType.Id = m.GetInt32("Id");
+                            equipmentType.Title = m.GetString("Title");
                         }
                     }
                     connection.CloseConnection();
@@ -41,22 +39,21 @@ namespace DreminKursovai.DB
             }
             return list;
         }
-        public bool Insert(Manufacturer manufacturer)
+        public bool Insert(EquipmentType equipmentType)
         {
             bool result = false;
             if (connection == null)
                 return result;
             if (connection.OpenConnection())
             {
-                MySqlCommand cmd = connection.CreateCommand("insert into `Manufacturer` Values(0,@Title,@Сountry); select LAST_INSERT_ID();");
-                cmd.Parameters.Add(new MySqlParameter("Title", manufacturer.Title));
-                cmd.Parameters.Add(new MySqlParameter("Country", manufacturer.Сountry));
+                MySqlCommand cmd = connection.CreateCommand("insert into `EquipmentType` Values(0,@Title); select LAST_INSERT_ID();");
+                cmd.Parameters.Add(new MySqlParameter("Title", equipmentType.Title));
                 try
                 {
                     int id = (int)(ulong)cmd.ExecuteScalar();
                     if (id > 0)
                     {
-                        manufacturer.Id = id;
+                        equipmentType.Id = id;
                         result = true;
                     }
                     else
@@ -72,12 +69,12 @@ namespace DreminKursovai.DB
             connection.CloseConnection();
             return result;
         }
-        internal List<Manufacturer> SelectAll()
+        internal List<EquipmentType> SelectAll()
         {
-            List<Manufacturer> list = new List<Manufacturer>();
+            List<EquipmentType > list = new List<EquipmentType>();
             if (connection == null) return list; if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand("SELECT `Id`,`Title` , `Сountry` FROM Manufacturer m");
+                var command = connection.CreateCommand("SELECT `Id` , `Title` FROM EquipmentType et");
                 try
                 {
                     MySqlDataReader m = command.ExecuteReader();
@@ -87,44 +84,36 @@ namespace DreminKursovai.DB
                         string title = string.Empty;
                         if (!m.IsDBNull(1))
                             title = m.GetString("Title");
-                        string country = string.Empty;
-                        if (!m.IsDBNull(2))
-                            country = m.GetString("Сountry");
 
-                        list.Add(new Manufacturer()
+                        list.Add(new EquipmentType()
                         {
                             Id = id,
-                            Title = title,
-                            Сountry = country
+                            Title = title
                         });
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
             }
             connection.CloseConnection();
             return list;
         }
-        static ManufacturerDB db;
-        public static ManufacturerDB GetDB()
+        static EquipmentTypeDB db;
+        public static EquipmentTypeDB GetDB()
         {
             if (db == null)
-                db = new ManufacturerDB(DBConnection.GetDbConnection());
+                db = new EquipmentTypeDB(DBConnection.GetDbConnection());
             return db;
         }
-        internal bool Update(Manufacturer edit)
+        internal bool Update(EquipmentType editt)
         {
             bool result = false;
-            if (connection ==null)
+            if (connection == null)
                 return result;
-            
+
             if (connection.OpenConnection())
             {
-                var mc = connection.CreateCommand($"update `Manufacturer` set `Title`=@Title, `Country`=@Country where `Id` = {edit.Id}");
-                mc.Parameters.Add(new MySqlParameter("Title", edit.Title));
-                mc.Parameters.Add(new MySqlParameter("Сountry", edit.Сountry));
+                var mc = connection.CreateCommand($"update `Manufacturer` set `Title`=@Title, `Country`=@Country where `Id` = {editt.Id}");
+                mc.Parameters.Add(new MySqlParameter("Title", editt.Title));
 
                 try
                 {
@@ -133,13 +122,13 @@ namespace DreminKursovai.DB
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message );
+                    MessageBox.Show(ex.Message);
                 }
             }
-            connection.CloseConnection() ;
+            connection.CloseConnection();
             return result;
         }
-        internal bool Remove(Manufacturer selectedManufacturer)
+        internal bool Remove(EquipmentType selectedEquipmentType)
         {
             bool result = false;
             if (connection == null)
@@ -147,7 +136,7 @@ namespace DreminKursovai.DB
 
             if (connection.OpenConnection())
             {
-                var mc = connection.CreateCommand($"delete from `Manufacturer` where `id` = {selectedManufacturer.Id}");
+                var mc = connection.CreateCommand($"delete from `EquipmentType` where `id` = {selectedEquipmentType.Id}");
                 try
                 {
                     mc.ExecuteNonQuery();
