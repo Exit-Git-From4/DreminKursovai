@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DreminKursovai.View"
         mc:Ignorable="d"
-        Title="ListEquipmentTypeWindow" Height="450" Width="800">
+        Title="ListEquipmentTypeWindow" Height="450" Width="210">
     <Grid>
         <ListView Grid.Row="1" ItemsSource="{Binding Manufacturers}" SelectedItem="{Binding SelectedManufacturer}">
             <ListView.ContextMenu>

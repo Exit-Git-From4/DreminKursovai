@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DreminKursovai.DB;
 using DreminKursovai.Model;
+using DreminKursovai.View;
 
 namespace DreminKursovai.VMTools
 {
@@ -19,27 +20,41 @@ namespace DreminKursovai.VMTools
 
         public CommandMvvm Save { get; set; }
 
-        public WindowAddEditManufacturerMvvm()
+        public WindowAddEditManufacturerMvvm(Manufacturer manufacturer)
         {
-            //SelectAll();
-            //Save = new CommandMvvm(() =>
-            //{
-            //    if (SelectedManufacturer.Id > 0)
-            //        ManufacturerDB.GetDB().Update(SelectedManufacturer);
-            //    else
-            //        ManufacturerDB.GetDB().Insert(SelectedManufacturer);
-            //    close();
-            //}, () =>
-            //SelectedManufacturer != null &&
-            //!string.IsNullOrWhiteSpace(SelectedManufacturer.Title) &&
-            //SelectedManufacturer.Title.Length <= 255 &&
-            //!string.IsNullOrWhiteSpace(SelectedManufacturer.Сountry) &&
-            //SelectedManufacturer.Сountry.Length <= 255
-            //);
+            SelectedManufacturer = manufacturer;
+            SelectAll();
+            Save = new CommandMvvm(() =>
+            {
+                if (SelectedManufacturer.Id > 0)
+                    ManufacturerDB.GetDB().Update(SelectedManufacturer);
+                else
+                    ManufacturerDB.GetDB().Insert(SelectedManufacturer);
+                close();
+            }, () =>
+            SelectedManufacturer != null &&
+            !string.IsNullOrWhiteSpace(SelectedManufacturer.Title) &&
+            SelectedManufacturer.Title.Length <= 255 &&
+            !string.IsNullOrWhiteSpace(SelectedManufacturer.Сountry) &&
+            SelectedManufacturer.Сountry.Length <= 255
+            );
+        }
+        Action close;
+        internal void SetClose(Action close)
+        {
+            this.close = close;
         }
         private void SelectAll()
         {
             Manufacturers = new ObservableCollection<Manufacturer>(ManufacturerDB.GetDB().SelectAll());
         }
+        //internal void SetManufacturer(Manufacturer manufacturer)
+        //{
+        //    SelectedManufacturer = manufacturer;
+        //    if (selectedManufacturer.Id == 0)
+        //    {
+        //        Signal(nameof(SelectedManufacturer));
+        //    }
+        //}
     }
 }

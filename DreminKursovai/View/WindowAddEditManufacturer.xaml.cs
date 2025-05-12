@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DreminKursovai.Model;
+using DreminKursovai.VMTools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace DreminKursovai.View
 {
     /// <summary>
@@ -19,9 +22,12 @@ namespace DreminKursovai.View
     /// </summary>
     public partial class WindowAddEditManufacturer : Window
     {
-        public WindowAddEditManufacturer()
+        public WindowAddEditManufacturer(Manufacturer manufacturer)
         {
             InitializeComponent();
+            var vm = new WindowAddEditManufacturerMvvm(manufacturer);
+            DataContext = vm;
+            vm.SetClose(Close);
         }
     }
 }

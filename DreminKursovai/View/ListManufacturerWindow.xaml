@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DreminKursovai.View"
         mc:Ignorable="d"
-        Title="Окно с производителями" Height="450" Width="215">
+        Title="Окно с производителями" Height="450" Width="215" WindowStartupLocation="CenterScreen">
     <Grid>
 
         <ListView Grid.Row="1" ItemsSource="{Binding Manufacturers}" SelectedItem="{Binding SelectedManufacturer}">

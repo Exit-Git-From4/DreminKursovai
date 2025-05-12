@@ -41,6 +41,7 @@ namespace DreminKursovai.VMTools
         public CommandMvvm OpenListParametrsEquipment { get; set; }
         public CommandMvvm OpenListManufacturer {  get; set; }
         public CommandMvvm OpenListOrders { get; set; }
+        public CommandMvvm OpenEquipmrntTypeWindow { get; set; }
         public string Search
         {
             get => search;
@@ -75,12 +76,17 @@ namespace DreminKursovai.VMTools
                 SelectAll();
             }, () => true);
 
-            //OpenListParametrsEquipment = new CommandMvvm(() =>
-            //{
-            //    new ParameterListWindow().ShowDialog();
-            //    SelectAll();
-            //}, () => true);
-
+            OpenEquipmrntTypeWindow = new CommandMvvm(() =>
+            {
+                new ListEquipmentTypeWindow().ShowDialog();
+                SelectAll();
+            }, () => true);
+            OpenListManufacturer = new CommandMvvm(() =>
+            {
+                Equipment equipment = new Equipment();
+                new ListEquipmentTypeWindow().ShowDialog();
+                SelectAll();
+            }, () => true);
             OpenListManufacturer = new CommandMvvm(() =>
             {
                 Equipment equipment = new Equipment();

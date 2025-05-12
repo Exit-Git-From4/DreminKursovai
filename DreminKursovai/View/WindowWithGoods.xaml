@@ -21,7 +21,7 @@
                     <MenuItem Header="Добавить" Command="{Binding Add}"/>
                     <MenuItem Header="Редоктировать" Command="{Binding Update}"/>
                     <MenuItem Header="Удалить" Command="{Binding Remove}"/>
-                    <MenuItem Header="Список параметров товара" Command="{Binding OpenListParametrsEquipment}"/>
+                    <MenuItem Header="Список параметров товара" Command="{Binding OpenEquipmrntTypeWindow}"/>
                     <MenuItem Header="Список производителей" Command="{Binding OpenListManufacturer}"/>
                     <MenuItem Header="Список заказов"/>
                 </ContextMenu>

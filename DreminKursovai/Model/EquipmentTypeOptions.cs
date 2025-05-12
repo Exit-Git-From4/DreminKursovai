@@ -8,6 +8,9 @@ namespace DreminKursovai.Model
 {
     public class EquipmentTypeOptions
     {
-        
+        public int OptionsId {  get; set; }
+        public Options Options { get; set; }
+        public int EquipmentTypeId { get; set; }
+        public EquipmentType EquipmentType { get; set; }
     }
 }

@@ -50,7 +50,7 @@ namespace DreminKursovai.DB
             {
                 MySqlCommand cmd = connection.CreateCommand("insert into `Manufacturer` Values(0,@Title,@Сountry); select LAST_INSERT_ID();");
                 cmd.Parameters.Add(new MySqlParameter("Title", manufacturer.Title));
-                cmd.Parameters.Add(new MySqlParameter("Country", manufacturer.Сountry));
+                cmd.Parameters.Add(new MySqlParameter("Сountry", manufacturer.Сountry));
                 try
                 {
                     int id = (int)(ulong)cmd.ExecuteScalar();
@@ -122,7 +122,7 @@ namespace DreminKursovai.DB
             
             if (connection.OpenConnection())
             {
-                var mc = connection.CreateCommand($"update `Manufacturer` set `Title`=@Title, `Country`=@Country where `Id` = {edit.Id}");
+                var mc = connection.CreateCommand($"update `Manufacturer` set `Title`=@Title, `Сountry`=@Сountry where `Id` = {edit.Id}");
                 mc.Parameters.Add(new MySqlParameter("Title", edit.Title));
                 mc.Parameters.Add(new MySqlParameter("Сountry", edit.Сountry));
 

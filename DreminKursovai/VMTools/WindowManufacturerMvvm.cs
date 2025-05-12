@@ -45,8 +45,8 @@ namespace DreminKursovai.VMTools
             SelectAll();
             Edit = new CommandMvvm(() =>
             {
-                Manufacturer equipment = SelectedManufacturer;
-                new ListManufacturerWindow().ShowDialog();
+                Manufacturer manfacturer = SelectedManufacturer;
+                new WindowAddEditManufacturer(manfacturer).ShowDialog();
                 SelectAll();
             }, () => SelectedManufacturer != null);
 
@@ -59,8 +59,8 @@ namespace DreminKursovai.VMTools
 
             Add = new CommandMvvm(() =>
             {
-                Manufacturer equipment = new Manufacturer();
-                new ListManufacturerWindow().ShowDialog();
+                Manufacturer manfacturer = new Manufacturer();
+                new WindowAddEditManufacturer(manfacturer).ShowDialog();
                 SelectAll();
             }, () => true);
         }

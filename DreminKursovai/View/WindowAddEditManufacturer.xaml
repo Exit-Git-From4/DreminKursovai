@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DreminKursovai.View"
         mc:Ignorable="d"
-        Title="Окно добавления/редоктирования прозводителей" Height="205" Width="245">
+        Title="Окно добавления/редоктирования прозводителей" Height="205" Width="245" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
@@ -15,10 +15,10 @@
                 </StackPanel>
                 <StackPanel Margin="5">
                     <TextBox Width="100" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5" Text="{Binding SelectedManufacturer.Title , UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox Width="100" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" Text="{Binding SelectedManufacturer.Country , UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Width="100" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" Text="{Binding SelectedManufacturer.Сountry , UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </StackPanel>
-            <Button Content="Сохранить" Margin="5" Height="30"/>
+            <Button Content="Сохранить" Margin="5" Height="30" Command="{Binding Save}"/>
         </StackPanel>
 
     </Grid>
