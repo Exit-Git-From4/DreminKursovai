@@ -7,18 +7,18 @@
         mc:Ignorable="d"
         Title="ListEquipmentTypeWindow" Height="450" Width="210">
     <Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Manufacturers}" SelectedItem="{Binding SelectedManufacturer}">
+        <ListView Grid.Row="1" ItemsSource="{Binding }" SelectedItem="{Binding SelectedEquipmentTypeOptions}">
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Добавить" Command="{Binding Add}"/>
+                    <MenuItem Header="Добавить" Command="{Binding }"/>
                     <MenuItem Header="Редоктировать" Command="{Binding Edit}"/>
                     <MenuItem Header="Удалить" Command="{Binding Remove}"/>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Название" Width="100" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Страна" Width="100" DisplayMemberBinding="{Binding Сountry}"/>
+                    <GridViewColumn Header="Параметры" Width="100" DisplayMemberBinding="{Binding }"/>
+                    <GridViewColumn Header="Значение" Width="100" DisplayMemberBinding="{Binding }"/>
                 </GridView>
             </ListView.View>
         </ListView>

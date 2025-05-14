@@ -65,7 +65,7 @@ namespace DreminKursovai.VMTools
             Remove = new CommandMvvm(() =>
             {
                 if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    EquipmentDB.GetDb().Remove(SelectedEquipment);
+                    EquipmentDB.GetDB().Remove(SelectedEquipment);
                 SelectAll();
             }, () => SelectedEquipment != null);
 
@@ -98,11 +98,11 @@ namespace DreminKursovai.VMTools
 
         private void SelectAll()
         {
-            Equipments = new ObservableCollection<Equipment>(EquipmentDB.GetDb().SelectAll());
+            Equipments = new ObservableCollection<Equipment>(EquipmentDB.GetDB().SelectAll());
         }
         private void SearchEquipment(string search)
         {
-            Equipments = new ObservableCollection<Equipment>(EquipmentDB.GetDb().SearchEquipment(search));
+            Equipments = new ObservableCollection<Equipment>(EquipmentDB.GetDB().SearchEquipment(search));
         }
     }
 }

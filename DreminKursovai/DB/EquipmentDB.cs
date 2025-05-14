@@ -62,7 +62,6 @@ namespace DreminKursovai.DB
                             equipment.EquipmentType = equipmentType;
                             equipment.Manufacturer = manufacturer;
                             equipments.Add(equipment);
-
                         }
                     }
                     connection.CloseConnection();
@@ -180,7 +179,7 @@ namespace DreminKursovai.DB
             return result;
         }
         static EquipmentDB db;
-        public static EquipmentDB GetDb()
+        public static EquipmentDB GetDB()
         {
             if (db == null)
                 db = new EquipmentDB(DBConnection.GetDbConnection());
