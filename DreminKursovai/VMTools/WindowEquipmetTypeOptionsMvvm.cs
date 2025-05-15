@@ -15,60 +15,80 @@ namespace DreminKursovai.VMTools
 {
     internal class WindowEquipmetTypeOptionsMvvm : BaseVM
     {
-        private EquipmentTypeOptions selectedEquipmentTypeOptions;
-        private ObservableCollection<EquipmentTypeOptions> equipmentTypeOptions = new();
+        private EquipmentType selectedEquipmentType;
+        private ObservableCollection<EquipmentType> equipmentType = new();
+        private Options selectOptions;
+        private ObservableCollection<Options> otions = new();
+
         private string search;
 
-        public ObservableCollection<EquipmentTypeOptions> EquipmentTypeOptions
+        public ObservableCollection<EquipmentType> EquipmentType
         {
-            get => equipmentTypeOptions;
+            get => equipmentType;
             set
             {
-                equipmentTypeOptions = value;
+                equipmentType = value;
                 Signal();
             }
         }
-        public EquipmentTypeOptions SelectedEquipmentTypeOptions
+        public EquipmentType SelectedEquipmentType
         {
-            get => selectedEquipmentTypeOptions;
+            get => selectedEquipmentType;
             set
             {
-                selectedEquipmentTypeOptions = value;
+                selectedEquipmentType = value;
                 Signal();
             }
         }
-
-        public CommandMvvm Add {  get; set; }
-        public CommandMvvm Remove { get; set; }
-        public CommandMvvm Edit { get; set; }
-        public string Search
+        public ObservableCollection<Options> Options
         {
-            get => search;
+            get => otions;
             set
             {
-                search = value;
-                SearchEquipmentTypeOptions(search);
+                otions = value;
+                Signal();
             }
         }
+        public Options SelectedEquipmentType
+        {
+            get => selectedEquipmentType;
+            set
+            {
+                selectedEquipmentType = value;
+                Signal();
+            }
+        }
+        public CommandMvvm Add1 {  get; set; }
+        public CommandMvvm Remove1 { get; set; }
+        public CommandMvvm Remove2 { get; set; }
+        public CommandMvvm Add2 { get; set; }
+        
 
         public WindowEquipmetTypeOptionsMvvm()
         {
             SelectAll();
-            Edit = new CommandMvvm(() =>
+            Add2 = new CommandMvvm(() =>
             {
-                EquipmentTypeOptions equipment = SelectedEquipmentTypeOptions;
+                EquipmentTypeOptions equipment = new EquipmentTypeOptions();
                 new ListEquipmentTypeWindow().ShowDialog();
+                SelectAll();
+            }, () => true); ;
+
+            Remove1 = new CommandMvvm(() =>
+            {
+                if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    EquipmentTypeDB.GetDB().Remove(SelectedEquipmentType);
                 SelectAll();
             }, () => SelectedEquipmentTypeOptions != null);
 
-            //Remove = new CommandMvvm(() =>
-            //{
-            //    if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            //        EquipmentDB.GetDB().Remove(SelectedEquipmentTypeOptions);
-            //    SelectAll();
-            //}, () => SelectedEquipmentTypeOptions != null);
+            Remove1 = new CommandMvvm(() =>
+            {
+                if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    OptionsDB.GetDB().Remove(SelectedOptions);
+                SelectAll();
+            }, () => SelectedEquipmentTypeOptions != null);
 
-            Add = new CommandMvvm(() =>
+            Add1 = new CommandMvvm(() =>
             {
                 EquipmentTypeOptions equipment = new EquipmentTypeOptions();
                 new ListEquipmentTypeWindow().ShowDialog();
@@ -80,10 +100,10 @@ namespace DreminKursovai.VMTools
         {
             equipmentTypeOptions = new ObservableCollection<EquipmentTypeOptions>(EquipmentTypeOptionsDB.GetDB().SelectAll());
         }
-
-        private void SearchEquipmentTypeOptions(string search)
+        private void SearchEquipmentType(string search)
         {
             equipmentTypeOptions = new ObservableCollection<EquipmentTypeOptions>(EquipmentTypeOptionsDB.GetDB().SearchEquipmentTypeOptions(search));
         }
+       
     }
 }

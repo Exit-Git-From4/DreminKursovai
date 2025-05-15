@@ -5,22 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DreminKursovai.View"
         mc:Ignorable="d"
-        Title="ListEquipmentTypeWindow" Height="450" Width="210">
+        Title="ListEquipmentTypeWindow" Height="450" Width="324">
     <Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding }" SelectedItem="{Binding SelectedEquipmentTypeOptions}">
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Добавить" Command="{Binding }"/>
-                    <MenuItem Header="Редоктировать" Command="{Binding Edit}"/>
-                    <MenuItem Header="Удалить" Command="{Binding Remove}"/>
-                </ContextMenu>
-            </ListView.ContextMenu>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListView ItemsSource="{Binding }" SelectedItem="{Binding SelectedEquipmentTypeOptions}" HorizontalAlignment="Center">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Тип" Width="100" DisplayMemberBinding="{Binding }"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        <StackPanel Grid.Row="1">
+            <Button Content="Добавить Тип" Margin="5"/>
+            <Button Content="Удалить тип" Margin="5"/>
+        </StackPanel>
+
+        <ListView ItemsSource="{Binding }" SelectedItem="{Binding SelectedEquipmentTypeOptions}" Grid.Column="1" HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Параметры" Width="100" DisplayMemberBinding="{Binding }"/>
-                    <GridViewColumn Header="Значение" Width="100" DisplayMemberBinding="{Binding }"/>
+                    <GridViewColumn Header="Параметр" Width="100" DisplayMemberBinding="{Binding }"/>
                 </GridView>
             </ListView.View>
         </ListView>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Button Content="Добавить параметр" Margin="5" />
+            <Button Content="Удалить параметр" Margin="5" />
+        </StackPanel>
+        
     </Grid>
 </Window>
