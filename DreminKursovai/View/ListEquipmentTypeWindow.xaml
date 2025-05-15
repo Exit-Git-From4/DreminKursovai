@@ -15,7 +15,7 @@
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView ItemsSource="{Binding }" SelectedItem="{Binding SelectedEquipmentTypeOptions}" HorizontalAlignment="Center">
+        <ListView ItemsSource="{Binding }" SelectedItem="{Binding SelectedEquipmentType}" HorizontalAlignment="Center">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Тип" Width="100" DisplayMemberBinding="{Binding }"/>
@@ -27,10 +27,10 @@
             <Button Content="Удалить тип" Margin="5"/>
         </StackPanel>
 
-        <ListView ItemsSource="{Binding }" SelectedItem="{Binding SelectedEquipmentTypeOptions}" Grid.Column="1" HorizontalAlignment="Center">
+        <ListView ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedOptions}" Grid.Column="1" HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Параметр" Width="100" DisplayMemberBinding="{Binding }"/>
+                    <GridViewColumn Header="Параметр" Width="auto" DisplayMemberBinding="{Binding Title}"/>
                 </GridView>
             </ListView.View>
         </ListView>

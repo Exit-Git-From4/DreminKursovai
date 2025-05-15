@@ -100,7 +100,7 @@ namespace DreminKursovai.DB
             return list;
         }
         static OptionsDB db;
-        public static OptionsDB GetDB()
+        public static OptionsDB GetDb()
         {
             if (db == null)
                 db = new OptionsDB(DBConnection.GetDbConnection());

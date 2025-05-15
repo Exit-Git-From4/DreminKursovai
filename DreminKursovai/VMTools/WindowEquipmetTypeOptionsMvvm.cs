@@ -16,9 +16,10 @@ namespace DreminKursovai.VMTools
     internal class WindowEquipmetTypeOptionsMvvm : BaseVM
     {
         private EquipmentType selectedEquipmentType;
-        private ObservableCollection<EquipmentType> equipmentType = new();
+        private ObservableCollection<EquipmentType> equipmentType;
+
         private Options selectOptions;
-        private ObservableCollection<Options> otions = new();
+        private ObservableCollection<Options> options;
 
         private string search;
 
@@ -42,53 +43,53 @@ namespace DreminKursovai.VMTools
         }
         public ObservableCollection<Options> Options
         {
-            get => otions;
+            get => options;
             set
             {
-                otions = value;
+                options = value;
                 Signal();
             }
         }
-        public Options SelectedEquipmentType
+        public Options SelectedOptions
         {
-            get => selectedEquipmentType;
+            get => selectOptions;
             set
             {
-                selectedEquipmentType = value;
+                selectOptions = value;
                 Signal();
             }
         }
-        public CommandMvvm Add1 {  get; set; }
-        public CommandMvvm Remove1 { get; set; }
-        public CommandMvvm Remove2 { get; set; }
-        public CommandMvvm Add2 { get; set; }
+        public CommandMvvm AddEquipmetType {  get; set; }
+        public CommandMvvm RemoveEquipmetType { get; set; }
+        public CommandMvvm RemoveOptions { get; set; }
+        public CommandMvvm AddOptions { get; set; }
         
 
         public WindowEquipmetTypeOptionsMvvm()
         {
             SelectAll();
-            Add2 = new CommandMvvm(() =>
+            AddEquipmetType = new CommandMvvm(() =>
             {
-                EquipmentTypeOptions equipment = new EquipmentTypeOptions();
-                new ListEquipmentTypeWindow().ShowDialog();
+                EquipmentType equipment = new EquipmentType();
+                new WindowAddEquipmentType().ShowDialog();
                 SelectAll();
             }, () => true); ;
 
-            Remove1 = new CommandMvvm(() =>
-            {
-                if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    EquipmentTypeDB.GetDB().Remove(SelectedEquipmentType);
-                SelectAll();
-            }, () => SelectedEquipmentTypeOptions != null);
+            //RemoveEquipmetType = new CommandMvvm(() =>
+            //{
+            //    if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //        EquipmentTypeDB.GetDB().Remove(SelectedEquipmentType);
+            //    SelectAll();
+            //}, () => SelectedEquipmentType != null);
 
-            Remove1 = new CommandMvvm(() =>
-            {
-                if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    OptionsDB.GetDB().Remove(SelectedOptions);
-                SelectAll();
-            }, () => SelectedEquipmentTypeOptions != null);
+            //RemoveOptions = new CommandMvvm(() =>
+            //{
+            //    if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //        OptionsDB.GetDB().Remove(SelectedOptions);
+            //    SelectAll();
+            //}, () => SelectedOptions != null);
 
-            Add1 = new CommandMvvm(() =>
+            AddOptions = new CommandMvvm(() =>
             {
                 EquipmentTypeOptions equipment = new EquipmentTypeOptions();
                 new ListEquipmentTypeWindow().ShowDialog();
@@ -98,12 +99,9 @@ namespace DreminKursovai.VMTools
 
         private void SelectAll()
         {
-            equipmentTypeOptions = new ObservableCollection<EquipmentTypeOptions>(EquipmentTypeOptionsDB.GetDB().SelectAll());
+            EquipmentType = new ObservableCollection<EquipmentTypeOptions>(EquipmentTypeDB.GetDBb().SelectAll());
+            Options = new ObservableCollection<Options>(OptionsDB.GetDb().SelectAll());
+
         }
-        private void SearchEquipmentType(string search)
-        {
-            equipmentTypeOptions = new ObservableCollection<EquipmentTypeOptions>(EquipmentTypeOptionsDB.GetDB().SearchEquipmentTypeOptions(search));
-        }
-       
     }
 }

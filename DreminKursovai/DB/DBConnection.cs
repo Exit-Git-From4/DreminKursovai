@@ -17,7 +17,7 @@ namespace DreminKursovai.DB
             MySqlConnectionStringBuilder sb = new MySqlConnectionStringBuilder();
             sb.UserID = "student";
             sb.Password = "student";
-            sb.Server = "192.168.200.13" /*"95.154.107.102"*/;
+            sb.Server = /*"192.168.200.13"*/ "95.154.107.102";
             sb.Database = "1125_Dremin_kursovai";
             sb.CharacterSet = "utf8mb4";
 

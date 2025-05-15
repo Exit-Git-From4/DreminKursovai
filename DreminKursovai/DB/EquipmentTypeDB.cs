@@ -70,7 +70,7 @@ namespace DreminKursovai.DB
         }
         internal List<EquipmentType> SelectAll()
         {
-            List<EquipmentType > list = new List<EquipmentType>();
+            List<EquipmentType> list = new List<EquipmentType>();
             if (connection == null) return list; if (connection.OpenConnection())
             {
                 var command = connection.CreateCommand("SELECT `Id` , `Title` FROM EquipmentType et");
@@ -100,7 +100,7 @@ namespace DreminKursovai.DB
             return list;
         }
         static EquipmentTypeDB db;
-        public static EquipmentTypeDB GetDB()
+        public static EquipmentTypeDB GetDBb()
         {
             if (db == null)
                 db = new EquipmentTypeDB(DBConnection.GetDbConnection());

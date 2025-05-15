@@ -1,5 +1,4 @@
-﻿using DreminKursovai.VMTools;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,15 +15,13 @@ using System.Windows.Shapes;
 namespace DreminKursovai.View
 {
     /// <summary>
-    /// Логика взаимодействия для ListEquipmentTypeWindow.xaml
+    /// Логика взаимодействия для WindowAddEquipmentType.xaml
     /// </summary>
-    public partial class ListEquipmentTypeWindow : Window
+    public partial class WindowAddEquipmentType : Window
     {
-        public ListEquipmentTypeWindow()
+        public WindowAddEquipmentType()
         {
             InitializeComponent();
-
-            DataContext = new WindowEquipmetTypeOptionsMvvm();
         }
     }
 }
