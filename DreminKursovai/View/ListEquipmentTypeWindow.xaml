@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DreminKursovai.View"
         mc:Ignorable="d"
-        Title="ListEquipmentTypeWindow" Height="450" Width="324">
+        Title="ListEquipmentTypeWindow" Height="450" Width="623">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -15,28 +15,28 @@
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView ItemsSource="{Binding }" SelectedItem="{Binding SelectedEquipmentType}" HorizontalAlignment="Center">
+        <ListView ItemsSource="{Binding EquipmentTypes}" SelectedItem="{Binding SelectedEquipmentType}" HorizontalAlignment="Center">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Тип" Width="100" DisplayMemberBinding="{Binding }"/>
+                        <GridViewColumn Header="Тип"  DisplayMemberBinding="{Binding Title}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         <StackPanel Grid.Row="1">
-            <Button Content="Добавить Тип" Margin="5"/>
-            <Button Content="Удалить тип" Margin="5"/>
+            <Button Content="Добавить Тип" Margin="5" Command="{Binding AddEquipmetType}"/>
+            <Button Content="Удалить тип" Margin="5" Command="{Binding RemoveEquipmetType}"/>
         </StackPanel>
 
-        <ListView ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedOptions}" Grid.Column="1" HorizontalAlignment="Center">
+        <ListView ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedOptions}" Grid.Column="1">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Параметр" Width="auto" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Параметр" DisplayMemberBinding="{Binding Title}"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Button Content="Добавить параметр" Margin="5" />
-            <Button Content="Удалить параметр" Margin="5" />
+            <Button Content="Добавить параметр" Margin="5" Command="{Binding AddOptions}"/>
+            <Button Content="Удалить параметр" Margin="5" Command="{Binding RemoveOptions}"/>
         </StackPanel>
         
     </Grid>

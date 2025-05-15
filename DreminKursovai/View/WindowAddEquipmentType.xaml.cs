@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DreminKursovai.DB;
+using DreminKursovai.Model;
+using DreminKursovai.VMTools;
 
 namespace DreminKursovai.View
 {
@@ -19,9 +22,12 @@ namespace DreminKursovai.View
     /// </summary>
     public partial class WindowAddEquipmentType : Window
     {
-        public WindowAddEquipmentType()
+        public WindowAddEquipmentType(EquipmentType equipmentType)
         {
             InitializeComponent();
+            var vm = new WindowAddEquipmentTypeMvvm(equipmentType);
+            DataContext = vm;
+            vm.SetClose(Close);
         }
     }
 }

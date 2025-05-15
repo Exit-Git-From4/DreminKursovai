@@ -1,6 +1,4 @@
-﻿using DreminKursovai.Model;
-using DreminKursovai.VMTools;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,19 +11,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DreminKursovai.Model;
+using DreminKursovai.VMTools;
 
 namespace DreminKursovai.View
 {
     /// <summary>
-    /// Логика взаимодействия для ListEquipmentTypeWindow.xaml
+    /// Логика взаимодействия для WindowAddOptions.xaml
     /// </summary>
-    public partial class ListEquipmentTypeWindow : Window
+    public partial class WindowAddOptions : Window
     {
-        public ListEquipmentTypeWindow( )
+        public WindowAddOptions(Options options)
         {
             InitializeComponent();
-
-            DataContext = new WindowEquipmetTypeOptionsMvvm();
+            var vm = new WindowAddOptionsMvvm(options);
+            DataContext = vm;
+            vm.SetClose(Close);
         }
     }
 }

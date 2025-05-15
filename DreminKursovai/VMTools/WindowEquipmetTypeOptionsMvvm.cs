@@ -16,19 +16,19 @@ namespace DreminKursovai.VMTools
     internal class WindowEquipmetTypeOptionsMvvm : BaseVM
     {
         private EquipmentType selectedEquipmentType;
-        private ObservableCollection<EquipmentType> equipmentType;
+        private ObservableCollection<EquipmentType> equipmentTypes;
 
         private Options selectOptions;
         private ObservableCollection<Options> options;
 
         private string search;
 
-        public ObservableCollection<EquipmentType> EquipmentType
+        public ObservableCollection<EquipmentType> EquipmentTypes
         {
-            get => equipmentType;
+            get => equipmentTypes;
             set
             {
-                equipmentType = value;
+                equipmentTypes = value;
                 Signal();
             }
         }
@@ -71,35 +71,35 @@ namespace DreminKursovai.VMTools
             AddEquipmetType = new CommandMvvm(() =>
             {
                 EquipmentType equipment = new EquipmentType();
-                new WindowAddEquipmentType().ShowDialog();
+                new WindowAddEquipmentType(equipment).ShowDialog();
                 SelectAll();
             }, () => true); ;
 
-            //RemoveEquipmetType = new CommandMvvm(() =>
-            //{
-            //    if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            //        EquipmentTypeDB.GetDB().Remove(SelectedEquipmentType);
-            //    SelectAll();
-            //}, () => SelectedEquipmentType != null);
+            RemoveEquipmetType = new CommandMvvm(() =>
+            {
+                if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    EquipmentTypeDB.GetDB().Remove(SelectedEquipmentType);
+                SelectAll();
+            }, () => SelectedEquipmentType != null);
 
-            //RemoveOptions = new CommandMvvm(() =>
-            //{
-            //    if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            //        OptionsDB.GetDB().Remove(SelectedOptions);
-            //    SelectAll();
-            //}, () => SelectedOptions != null);
+            RemoveOptions = new CommandMvvm(() =>
+            {
+                if (MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    OptionsDB.GetDb().Remove(SelectedOptions);
+                SelectAll();
+            }, () => SelectedOptions != null);
 
             AddOptions = new CommandMvvm(() =>
             {
-                EquipmentTypeOptions equipment = new EquipmentTypeOptions();
-                new ListEquipmentTypeWindow().ShowDialog();
+                Options options = new Options();
+                new WindowAddOptions(options).ShowDialog();
                 SelectAll();
             }, () => true);
         }
 
         private void SelectAll()
         {
-            EquipmentType = new ObservableCollection<EquipmentTypeOptions>(EquipmentTypeDB.GetDBb().SelectAll());
+            EquipmentTypes = new ObservableCollection<EquipmentType>(EquipmentTypeDB.GetDB().SelectAll());
             Options = new ObservableCollection<Options>(OptionsDB.GetDb().SelectAll());
 
         }

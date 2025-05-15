@@ -10,7 +10,7 @@ using DreminKursovai.View;
 
 namespace DreminKursovai.VMTools
 {
-    partial class WindowAddEditManufacturerMvvm : BaseVM
+    public class WindowAddEditManufacturerMvvm : BaseVM
     {
         private Manufacturer selectedManufacturer;
         private ObservableCollection<Manufacturer> manufacturers = new();

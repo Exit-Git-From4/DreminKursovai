@@ -1,61 +1,59 @@
-﻿using DreminKursovai.Model;
-using MySqlConnector;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using DreminKursovai.Model;
+using MySqlConnector;
 
 namespace DreminKursovai.DB
 {
     public class EquipmentTypeDB
     {
-        DBConnection connection;
+        DBConnection conn;
         private EquipmentTypeDB(DBConnection connection)
         {
-            this.connection = connection;
+            this.conn = connection;
         }
-
-        public List<EquipmentType> SearchEquipmentType(string search)
+        public List<EquipmentType> SearchManufacturer(string searchh)
         {
-            List<EquipmentType> list = new List<EquipmentType>();
-            string gh = $"SELECT * FROM EquipmentType et";
-            if (connection.OpenConnection())
+            List<EquipmentType> list = new();
+            string GH = $"SELECT * FROM EquipmentType et";
+            if (conn.OpenConnection())
             {
-                using (var mv = connection.CreateCommand(gh))
+                using (var mv = conn.CreateCommand(GH))
                 {
-                    mv.Parameters.Add(new MySqlParameter("search", $"%{search}%"));
+                    mv.Parameters.Add(new MySqlParameter("searchh", $"%{searchh}%"));
                     using (var m = mv.ExecuteReader())
                     {
                         while (m.Read())
                         {
-                            var equipmenttype = new EquipmentType();
-                            equipmenttype.Id = m.GetInt32("Id");
-                            equipmenttype.Title = m.GetString("Title");
+                            var equipmentType = new EquipmentType();
+                            equipmentType.Id = m.GetInt32("Id");
+                            equipmentType.Title = m.GetString("Title");
                         }
                     }
-                    connection.CloseConnection();
+                    conn.CloseConnection();
                 }
             }
             return list;
         }
-        public bool Insert(EquipmentType equipmenttype)
+        public bool Insert(EquipmentType equipmentType)
         {
             bool result = false;
-            if (connection == null)
+            if (conn == null)
                 return result;
-            if (connection.OpenConnection())
+            if (conn.OpenConnection())
             {
-                MySqlCommand cmd = connection.CreateCommand("insert into `EquipmentType` Values(0, @Title); select LAST_INSERT_ID();");
-                cmd.Parameters.Add(new MySqlParameter("Title", equipmenttype.Title));
-
+                MySqlCommand cmd = conn.CreateCommand("insert into `EquipmentType` Values(0,@Title); select LAST_INSERT_ID();");
+                cmd.Parameters.Add(new MySqlParameter("Title", equipmentType.Title));
                 try
                 {
                     int id = (int)(ulong)cmd.ExecuteScalar();
                     if (id > 0)
                     {
-                        equipmenttype.Id = id;
+                        equipmentType.Id = id;
                         result = true;
                     }
                     else
@@ -63,17 +61,20 @@ namespace DreminKursovai.DB
                         MessageBox.Show("Запись не добавлена");
                     }
                 }
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            connection.CloseConnection();
+            conn.CloseConnection();
             return result;
         }
         internal List<EquipmentType> SelectAll()
         {
             List<EquipmentType> list = new List<EquipmentType>();
-            if (connection == null) return list; if (connection.OpenConnection())
+            if (conn == null) return list; if (conn.OpenConnection())
             {
-                var command = connection.CreateCommand("SELECT `Id` , `Title` FROM EquipmentType et");
+                var command = conn.CreateCommand("SELECT `Id`,`Title` FROM EquipmentType et");
                 try
                 {
                     MySqlDataReader m = command.ExecuteReader();
@@ -96,11 +97,11 @@ namespace DreminKursovai.DB
                     MessageBox.Show(ex.Message);
                 }
             }
-            connection.CloseConnection();
+            conn.CloseConnection();
             return list;
         }
         static EquipmentTypeDB db;
-        public static EquipmentTypeDB GetDBb()
+        public static EquipmentTypeDB GetDB()
         {
             if (db == null)
                 db = new EquipmentTypeDB(DBConnection.GetDbConnection());
@@ -109,10 +110,12 @@ namespace DreminKursovai.DB
         internal bool Update(EquipmentType edit)
         {
             bool result = false;
-            if (connection == null) return result;
-            if (connection.OpenConnection())
+            if (conn == null)
+                return result;
+
+            if (conn.OpenConnection())
             {
-                var mc = connection.CreateCommand($"update `EquipmentType` set `Title`=@Title where `Id` = {edit.Id}");
+                var mc = conn.CreateCommand($"update `EquipmentType` set `Title`=@Title where `Id` = {edit.Id}");
                 mc.Parameters.Add(new MySqlParameter("Title", edit.Title));
 
                 try
@@ -125,18 +128,18 @@ namespace DreminKursovai.DB
                     MessageBox.Show(ex.Message);
                 }
             }
-            connection.CloseConnection();
+            conn.CloseConnection();
             return result;
         }
         internal bool Remove(EquipmentType selectedEquipmentType)
         {
             bool result = false;
-            if (connection == null)
+            if (conn == null)
                 return result;
 
-            if (connection.OpenConnection())
+            if (conn.OpenConnection())
             {
-                var mc = connection.CreateCommand($"delete from `EquipmentType` where `id` = {selectedEquipmentType.Id}");
+                var mc = conn.CreateCommand($"delete from `EquipmentType` where `id` = {selectedEquipmentType.Id}");
                 try
                 {
                     mc.ExecuteNonQuery();
@@ -147,8 +150,9 @@ namespace DreminKursovai.DB
                     MessageBox.Show(ex.Message);
                 }
             }
-            connection.CloseConnection();
+            conn.CloseConnection();
             return result;
         }
+
     }
 }

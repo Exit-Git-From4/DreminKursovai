@@ -5,12 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DreminKursovai.View"
         mc:Ignorable="d"
-        Title="WindowAddEditEquipment" Height="306" Width="354" MinHeight="320" WindowStartupLocation="CenterScreen">
+        Title="WindowAddEditEquipment" Height="293" Width="358" WindowStartupLocation="CenterScreen">
     <Grid>
-
-        <Grid.Background>
-            <ImageBrush ImageSource="/View/bg6b2.jpg"/>
-        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -23,7 +19,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Border BorderBrush="Black" BorderThickness="1" Margin="5" Width="100" Height="25" HorizontalAlignment="Right">
             <TextBlock Text="Название:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -43,16 +39,12 @@
         <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="25" Grid.Row="5" HorizontalAlignment="Right" Width="100">
             <TextBlock Text="Производитель:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="25" Grid.Row="6" HorizontalAlignment="Right" Width="100">
-            <TextBlock Text="Страна:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Border>
         <TextBox Margin="5" Grid.Column="1" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedEquipment.Title , UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Margin="5" Grid.Column="1" Grid.Row="1" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedEquipment.Model , UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Margin="5" Grid.Column="1" Grid.Row="2" Width="100" HorizontalAlignment="Left" Background="White" />
+        <ComboBox Margin="5" Grid.Column="1" Grid.Row="2" Width="100" HorizontalAlignment="Left" Background="White" ItemsSource="{Binding EquipmentTypes}" SelectedItem="{Binding SelectedEquipment.EquipmentType}" DisplayMemberPath="Title"/>
         <TextBox Margin="5" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedEquipment.Value, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Margin="5" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedEquipment.ReleaseYear , UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Margin="5" Grid.Column="1" Grid.Row="5" Width="100" HorizontalAlignment="Left" Background="White" />
-        <TextBox Margin="5" Grid.Column="1" Grid.Row="6" Width="100" HorizontalAlignment="Left" />
+        <ComboBox Margin="5" Grid.Column="1" Grid.Row="5" Width="100" HorizontalAlignment="Left" Background="White"  ItemsSource="{Binding Manufacturers}" SelectedItem="{Binding SelectedEquipment.Manufacturer}" DisplayMemberPath="Title"/>
         <Button Content="Сохранить" Grid.ColumnSpan="2" Grid.Row="8" Width="210" Height="35" BorderBrush="{x:Null}" Background="{x:Null}"/>
     </Grid>
 </Window>

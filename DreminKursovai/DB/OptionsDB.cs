@@ -1,61 +1,59 @@
-﻿using DreminKursovai.Model;
-using MySqlConnector;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DreminKursovai.Model;
+using MySqlConnector;
 using System.Windows;
 
 namespace DreminKursovai.DB
 {
     internal class OptionsDB
     {
-        DBConnection connection;
+        DBConnection conn;
         private OptionsDB(DBConnection connection)
         {
-            this.connection = connection;
+            this.conn = connection;
         }
-
-        public List<Options> SearchOptions(string search)
+        public List<Options> SearchManufacturer(string searchh)
         {
             List<Options> list = new List<Options>();
-            string gh = $"SELECT * FROM Options et";
-            if (connection.OpenConnection())
+            string GH = $"SELECT * FROM Options o";
+            if (conn.OpenConnection())
             {
-                using (var mv = connection.CreateCommand(gh))
+                using (var mv = conn.CreateCommand(GH))
                 {
-                    mv.Parameters.Add(new MySqlParameter("search", $"%{search}%"));
+                    mv.Parameters.Add(new MySqlParameter("searchh", $"%{searchh}%"));
                     using (var m = mv.ExecuteReader())
                     {
                         while (m.Read())
                         {
-                            var equipmenttype = new Options();
-                            equipmenttype.Id = m.GetInt32("Id");
-                            equipmenttype.Title = m.GetString("Title");
+                            var options = new Options();
+                            options.Id = m.GetInt32("Id");
+                            options.Title = m.GetString("Title");
                         }
                     }
-                    connection.CloseConnection();
+                    conn.CloseConnection();
                 }
             }
             return list;
         }
-        public bool Insert(Options equipmenttype)
+        public bool Insert(Options options)
         {
             bool result = false;
-            if (connection == null)
+            if (conn == null)
                 return result;
-            if (connection.OpenConnection())
+            if (conn.OpenConnection())
             {
-                MySqlCommand cmd = connection.CreateCommand("insert into `Options` Values(0, @Title); select LAST_INSERT_ID();");
-                cmd.Parameters.Add(new MySqlParameter("Title", equipmenttype.Title));
-
+                MySqlCommand cmd = conn.CreateCommand("insert into `Options` Values(0,@Title); select LAST_INSERT_ID();");
+                cmd.Parameters.Add(new MySqlParameter("Title", options.Title));
                 try
                 {
                     int id = (int)(ulong)cmd.ExecuteScalar();
                     if (id > 0)
                     {
-                        equipmenttype.Id = id;
+                        options.Id = id;
                         result = true;
                     }
                     else
@@ -63,17 +61,20 @@ namespace DreminKursovai.DB
                         MessageBox.Show("Запись не добавлена");
                     }
                 }
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            connection.CloseConnection();
+            conn.CloseConnection();
             return result;
         }
         internal List<Options> SelectAll()
         {
             List<Options> list = new List<Options>();
-            if (connection == null) return list; if (connection.OpenConnection())
+            if (conn == null) return list; if (conn.OpenConnection())
             {
-                var command = connection.CreateCommand("SELECT `Id` , `Title` FROM EquipmentType et");
+                var command = conn.CreateCommand("SELECT `Id`,`Title` FROM Options o");
                 try
                 {
                     MySqlDataReader m = command.ExecuteReader();
@@ -96,7 +97,7 @@ namespace DreminKursovai.DB
                     MessageBox.Show(ex.Message);
                 }
             }
-            connection.CloseConnection();
+            conn.CloseConnection();
             return list;
         }
         static OptionsDB db;
@@ -109,10 +110,12 @@ namespace DreminKursovai.DB
         internal bool Update(Options edit)
         {
             bool result = false;
-            if (connection == null) return result;
-            if (connection.OpenConnection())
+            if (conn == null)
+                return result;
+
+            if (conn.OpenConnection())
             {
-                var mc = connection.CreateCommand($"update `Options` set `Title`=@Title where `Id` = {edit.Id}");
+                var mc = conn.CreateCommand($"update `Options` set `Title`=@Title where `Id` = {edit.Id}");
                 mc.Parameters.Add(new MySqlParameter("Title", edit.Title));
 
                 try
@@ -125,18 +128,18 @@ namespace DreminKursovai.DB
                     MessageBox.Show(ex.Message);
                 }
             }
-            connection.CloseConnection();
+            conn.CloseConnection();
             return result;
         }
         internal bool Remove(Options selectedOptions)
         {
             bool result = false;
-            if (connection == null)
+            if (conn == null)
                 return result;
 
-            if (connection.OpenConnection())
+            if (conn.OpenConnection())
             {
-                var mc = connection.CreateCommand($"delete from `Options` where `id` = {selectedOptions.Id}");
+                var mc = conn.CreateCommand($"delete from `Options` where `id` = {selectedOptions.Id}");
                 try
                 {
                     mc.ExecuteNonQuery();
@@ -147,8 +150,9 @@ namespace DreminKursovai.DB
                     MessageBox.Show(ex.Message);
                 }
             }
-            connection.CloseConnection();
+            conn.CloseConnection();
             return result;
         }
+
     }
 }
