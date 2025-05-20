@@ -156,7 +156,7 @@ namespace DreminKursovai.DB
                             Title = Titles,
                         };
 
-                        result.Add(new Equipment()
+                        result.Add(new Equipment
                         {
                             Id = id,
                             Title = titless,
@@ -184,6 +184,32 @@ namespace DreminKursovai.DB
             if (db == null)
                 db = new EquipmentDB(DBConnection.GetDbConnection());
             return db;
+        }
+
+        internal bool Update(Equipment edit)
+        {
+            bool result = false;
+            if (connection == null)
+                return result;
+            if (connection.OpenConnection())
+            {
+                var mc = connection.CreateCommand($"update `Equipment` set `Title`=@Title , `Model`=@Model , `Value`=@Value , `ReleaseYear`=@ReleaseYear , `ManufacturerId`=@ManufacturerId , `EquipmentTypeId`=@EquipmentTypeId where `Id` = {edit.Id}");
+                mc.Parameters.Add(new MySqlParameter("Title", edit.Title));
+                mc.Parameters.Add(new MySqlParameter("Model", edit.Model));
+                mc.Parameters.Add(new MySqlParameter("Value", edit.Value));
+                mc.Parameters.Add(new MySqlParameter("ReleaseYear", edit.ReleaseYear));
+                mc.Parameters.Add(new MySqlParameter("ManufacturerId", edit.ManufacturerId));
+                mc.Parameters.Add(new MySqlParameter("EquipmentTypeId", edit.EquipmentTypeId));
+                try
+                {
+                    mc.ExecuteNonQuery();
+                    result = true;
+                }
+                catch (Exception ex) {MessageBox.Show(ex.Message); }
+            }
+            connection.CloseConnection();
+            return result;
+
         }
 
         internal bool Remove(Equipment selectedEquipment)

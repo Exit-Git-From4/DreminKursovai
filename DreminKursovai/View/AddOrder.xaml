@@ -1,11 +1,11 @@
-﻿<Window x:Class="DreminKursovai.View.WindowAddEditEquipment"
+﻿<Window x:Class="DreminKursovai.View.AddOrder"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DreminKursovai.View"
         mc:Ignorable="d"
-        Title="WindowAddEditEquipment" Height="293" Width="358" WindowStartupLocation="CenterScreen">
+        Title="AddOrder" Height="304" Width="259" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -31,20 +31,24 @@
             <TextBlock Text="Тип:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="25" Grid.Row="3" HorizontalAlignment="Right" Width="100">
-            <TextBlock Text="Цена:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="Дата заказа:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="25" Grid.Row="4" HorizontalAlignment="Right" Width="100">
-            <TextBlock Text="Год релиза:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="Количество:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="25" Grid.Row="5" HorizontalAlignment="Right" Width="100">
-            <TextBlock Text="Производитель:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="Статус заказа:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <TextBox Margin="5" Grid.Column="1" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedEquipment.Title , UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Margin="5" Grid.Column="1" Grid.Row="1" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedEquipment.Model , UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Margin="5" Grid.Column="1" Grid.Row="2" Width="100" HorizontalAlignment="Left" Background="White"  ItemsSource="{Binding EquipmentTypes}" SelectedItem="{Binding SelectedEquipment.EquipmentType}" DisplayMemberPath="Title"/>
-        <TextBox Margin="5" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedEquipment.Value, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Margin="5" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedEquipment.ReleaseYear , UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Margin="5" Grid.Column="1" Grid.Row="5" Width="100" HorizontalAlignment="Left" Background="White"  ItemsSource="{Binding Manufacturers}" SelectedItem="{Binding SelectedEquipment.Manufacturer}" DisplayMemberPath="Title"/>
+        <TextBox Margin="5" Grid.Column="1" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedOrder.Title , UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Margin="5" Grid.Column="1" Grid.Row="1" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedOrder.Model , UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Margin="5" Grid.Column="1" Grid.Row="2" Width="100" HorizontalAlignment="Left" Background="White"  ItemsSource="{Binding EquipmentTypes}" SelectedItem="{Binding SelectedOrder.EquipmentType}" DisplayMemberPath="Title"/>
+        <DatePicker Margin="5" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left" SelectedDate="{Binding SelectedOrder.OrderDate}"/>
+        <TextBox Margin="5" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedOrder.ReleaseYear , UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Margin="5" Grid.Column="1" Grid.Row="5" Width="100" Orientation="Vertical">
+            <RadioButton Content="Заказан" IsChecked="{Binding SelectedOrder.OrderStatus}"/>
+            <RadioButton HorizontalAlignment="Left" Background="White" Content="Не заказан"/>
+        </StackPanel>
+        
         <Button Content="Сохранить" Grid.ColumnSpan="2" Grid.Row="8" Width="210" Height="35" BorderBrush="{x:Null}" Background="{x:Null}" Command="{Binding Save}"/>
     </Grid>
 </Window>

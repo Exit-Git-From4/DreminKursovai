@@ -93,7 +93,12 @@ namespace DreminKursovai.VMTools
                 new ListManufacturerWindow().ShowDialog();
                 SelectAll();
             }, () => true);
-
+            OpenListOrders = new CommandMvvm(() =>
+            {
+                Equipment equipment = new Equipment();
+                new OrderList().ShowDialog();
+                SelectAll();
+            }, () => true);
         }
 
         private void SelectAll()

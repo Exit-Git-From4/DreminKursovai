@@ -11,22 +11,23 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DreminKursovai.DB;
 using DreminKursovai.Model;
 using DreminKursovai.VMTools;
 
 namespace DreminKursovai.View
 {
     /// <summary>
-    /// Логика взаимодействия для WindowAddEditEquipment.xaml
+    /// Логика взаимодействия для AddOrder.xaml
     /// </summary>
-    public partial class WindowAddEditEquipment : Window
+    public partial class AddOrder : Window
     {
-        public WindowAddEditEquipment(Equipment equipment)
+        public AddOrder(Order order)
         {
             InitializeComponent();
-            var nu = new WindowAddEdiEquipmetMvvm(equipment);
-            DataContext = nu;
-            nu.SetClose(Close);
+            var vm = new AddOrderListMvvm(order);
+            DataContext = vm;
+            vm.SetClose(Close);
         }
     }
 }

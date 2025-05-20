@@ -17,16 +17,15 @@ using DreminKursovai.VMTools;
 namespace DreminKursovai.View
 {
     /// <summary>
-    /// Логика взаимодействия для WindowAddEditEquipment.xaml
+    /// Логика взаимодействия для OrderList.xaml
     /// </summary>
-    public partial class WindowAddEditEquipment : Window
+    public partial class OrderList : Window
     {
-        public WindowAddEditEquipment(Equipment equipment)
+        public OrderList()
         {
             InitializeComponent();
-            var nu = new WindowAddEdiEquipmetMvvm(equipment);
-            DataContext = nu;
-            nu.SetClose(Close);
+
+            DataContext = new OrderListMvvm();
         }
     }
 }
