@@ -63,7 +63,7 @@ namespace DreminKursovai.DB
                 return result;
             if (connection.OpenConnection())
             {
-                MySqlCommand cmd = connection.CreateCommand("insert into `Order` Values(0,@Model , @Title , @Quantity , @OrderStatus , @OrderDate , @EquipmentTypeId");
+                MySqlCommand cmd = connection.CreateCommand("insert into `Order` Values(0,@Title ,@Model , @OrderDate , @Quantity , @OrderStatus ,  @EquipmentTypeId); SELECT LAST_INSERT_ID();");
                 cmd.Parameters.Add(new MySqlParameter("Title", order.Title));
                 cmd.Parameters.Add(new MySqlParameter("Model", order.Model));
                 cmd.Parameters.Add(new MySqlParameter("Quantity", order.Quantity));
@@ -73,6 +73,7 @@ namespace DreminKursovai.DB
                 try
                 {
                     int id = (int)(ulong)cmd.ExecuteScalar();
+                    
                     if (id > 0)
                     {
                         order.Id = id;
@@ -138,6 +139,7 @@ namespace DreminKursovai.DB
                             OrderDate = orderdate,
                             Quantity = quantity,
                             OrderStatus = donenotdone,
+                            EquipmentType = equipmentType,
                             EquipmentTypeId = equipmentTypeId,
                         });
                     }

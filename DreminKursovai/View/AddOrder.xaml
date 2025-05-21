@@ -39,16 +39,16 @@
         <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="25" Grid.Row="5" HorizontalAlignment="Right" Width="100">
             <TextBlock Text="Статус заказа:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <TextBox Margin="5" Grid.Column="1" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedOrder.Title , UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Margin="5" Grid.Column="1" Grid.Row="1" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedOrder.Model , UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Margin="5" Grid.Column="1" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedOrder.Title, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Margin="5" Grid.Column="1" Grid.Row="1" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedOrder.Model, UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox Margin="5" Grid.Column="1" Grid.Row="2" Width="100" HorizontalAlignment="Left" Background="White"  ItemsSource="{Binding EquipmentTypes}" SelectedItem="{Binding SelectedOrder.EquipmentType}" DisplayMemberPath="Title"/>
-        <DatePicker Margin="5" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left" SelectedDate="{Binding SelectedOrder.OrderDate}"/>
-        <TextBox Margin="5" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedOrder.ReleaseYear , UpdateSourceTrigger=PropertyChanged}"/>
+        <DatePicker Margin="5" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left" SelectedDate="{Binding SelectedOrder.OrderDate}" />
+        <TextBox Margin="5" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Text="{Binding SelectedOrder.Quantity , UpdateSourceTrigger=PropertyChanged}"/>
         <StackPanel Margin="5" Grid.Column="1" Grid.Row="5" Width="100" Orientation="Vertical">
             <RadioButton Content="Заказан" IsChecked="{Binding SelectedOrder.OrderStatus}"/>
             <RadioButton HorizontalAlignment="Left" Background="White" Content="Не заказан"/>
         </StackPanel>
-        
+
         <Button Content="Сохранить" Grid.ColumnSpan="2" Grid.Row="8" Width="210" Height="35" BorderBrush="{x:Null}" Background="{x:Null}" Command="{Binding Save}"/>
     </Grid>
 </Window>

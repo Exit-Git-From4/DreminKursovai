@@ -18,7 +18,7 @@
                     <GridViewColumn Header="Название" Width="100" DisplayMemberBinding="{Binding Title}"/>
                     <GridViewColumn Header="Тип" Width="100" DisplayMemberBinding="{Binding EquipmentType.Title}"/>
                     <GridViewColumn Header="Модель" Width="100" DisplayMemberBinding="{Binding Model}"/>
-                    <GridViewColumn Header="Дата заказа" Width="100" DisplayMemberBinding="{Binding OrderDate}"/>
+                    <GridViewColumn Header="Дата заказа" Width="100" DisplayMemberBinding="{Binding OrderDate, StringFormat=dd.MM.yyyy}"/>
                     <GridViewColumn Header="Количество" Width="100" DisplayMemberBinding="{Binding Quantity}"/>
                     <GridViewColumn Header="Статус заказа" Width="100" DisplayMemberBinding="{Binding OrderStatus}"/>
                 </GridView>

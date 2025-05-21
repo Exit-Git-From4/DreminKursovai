@@ -24,21 +24,20 @@ namespace DreminKursovai.VMTools
 
         public AddOrderListMvvm(Order order)
         {
-            SelectedOrder = order;
+            SelectedOrder = new Order();
             SelectAll();
             Save = new CommandMvvm(() =>
             {
-                order.EquipmentTypeId = order.EquipmentType.Id;
-                if (SelectedOrder.Id > 0)
-                    OrderDB.GetDB().Update(SelectedOrder);
-                else OrderDB.GetDB().Insert(SelectedOrder);
+                SelectedOrder.EquipmentTypeId = SelectedOrder.EquipmentType.Id;
+                OrderDB.GetDB().Insert(SelectedOrder);
                 close();
             }, () =>
             SelectedOrder != null &&
             !string.IsNullOrWhiteSpace(SelectedOrder.Title) &&
             !string.IsNullOrWhiteSpace(SelectedOrder.Model) &&
-            SelectedOrder.Quantity != null &&
-            SelectedOrder.EquipmentType != null
+            SelectedOrder.Quantity > 0 &&
+            SelectedOrder.EquipmentType != null &&
+            SelectedOrder.OrderDate <= DateTime.Now
             );
         }
         private void SelectAll()

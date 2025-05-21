@@ -38,9 +38,10 @@ namespace DreminKursovai.VMTools
         public CommandMvvm Add {  get; set; }
         public OrderListMvvm()
         {
+            SelectAll();
             Add = new CommandMvvm(() =>
             {
-                Order order = SelectedOrder;
+                Order order = SelectedOrder == null ? new() : SelectedOrder;
                 new AddOrder(order).ShowDialog();
                 SelectAll();
             }, () => true);
