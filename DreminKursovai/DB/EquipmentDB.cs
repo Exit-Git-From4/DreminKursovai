@@ -23,7 +23,7 @@ namespace DreminKursovai.DB
             List<Manufacturer> manufacturers = new();
             List<EquipmentType> equipmentTypes = new();
 
-            string GG = $"SELECT * FROM Equipment e JOIN Manufacturer m ON e.ManufacturerId = m.Id JOIN EquipmentType et ON e.EquipmentTypeId = et.Id";
+            string GG = $"SELECT * FROM Equipment e JOIN Manufacturer m ON e.ManufacturerId = m.Id JOIN EquipmentType et ON e.EquipmentTypeId = et.Id WHERE e.Title LIKE @search";
             if (connection.OpenConnection())
             {
                 using (var mc = connection.CreateCommand(GG))
@@ -38,7 +38,7 @@ namespace DreminKursovai.DB
                             equipment.Title = dr.GetString("Title");
                             equipment.Model = dr.GetString("Model");
                             equipment.Value = dr.GetDecimal("Value");
-                            equipment.ReleaseYear = dr.GetInt32("ReleasYear");
+                            equipment.ReleaseYear = dr.GetInt32("ReleaseYear");
                             equipment.ManufacturerId = dr.GetInt32("ManufacturerId");
                             equipment.EquipmentTypeId = dr.GetInt32("EquipmentTypeId");
 
@@ -48,7 +48,7 @@ namespace DreminKursovai.DB
                                 manufacturer= new Manufacturer();
                                 manufacturer.Id = equipment.ManufacturerId;
                                 manufacturer.Title = dr.GetString("Title");
-                                manufacturer.Сountry = dr.GetString("Country");
+                                manufacturer.Сountry = dr.GetString("Сountry");
                                 manufacturers.Add(manufacturer);
                             }
                             var equipmentType = equipmentTypes.FirstOrDefault(d => d.Id == equipment.ManufacturerId);

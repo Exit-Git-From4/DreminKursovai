@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="5">
             <TextBlock Text="Поиск:"/>
-            <TextBox Width="150" Margin="5,0,0,0"/>
+            <TextBox Width="150" Margin="5,0,0,0" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <ListView Grid.Row="1" ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment}">
             <ListView.ContextMenu>

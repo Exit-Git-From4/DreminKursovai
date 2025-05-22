@@ -16,46 +16,7 @@ namespace DreminKursovai.DB
         {
             this.connection = db;
         }
-        public List<Order> SearchOrder(string search)
-        {
-            List<Order> orders = new();
-            List<EquipmentType> equipmentTypes = new();
-
-            string gg = $"SELECT * FROM `Order` o JOIN EquipmentType et ON o.EquipmentTypeId = et.Id";
-            if (connection.OpenConnection())
-            {
-                using (var mv = connection.CreateCommand(gg))
-                {
-                    mv.Parameters.Add(new MySqlParameter("search", $"%{search}%"));
-                    using (var dr = mv.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            var order = new Order();
-                            order.Model = dr.GetString("Model");
-                            order.Title = dr.GetString("Title");
-                            order.Quantity = dr.GetInt32("Quantity");
-                            order.OrderStatus = dr.GetBoolean("OrderStatus");
-                            order.OrderDate = dr.GetDateTime("OrderDate");
-                            order.EquipmentTypeId = dr.GetInt32("EquipmentTypeId");
-
-                            var equipmentType = equipmentTypes.FirstOrDefault(s => s.Id == order.EquipmentTypeId);
-                            if (equipmentType == null)
-                            {
-                                equipmentType = new EquipmentType();
-                                equipmentType.Id = order.EquipmentTypeId;
-                                equipmentType.Title = dr.GetString("Title");
-                                equipmentTypes.Add(equipmentType);
-                            }
-                            order.EquipmentType = equipmentType;
-                            orders.Add(order);
-                        }
-                    }
-                    connection.CloseConnection();
-                }
-            }
-            return orders;
-        }
+        
         public bool Insert(Order order)
         {
             bool result = false;

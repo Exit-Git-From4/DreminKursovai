@@ -16,29 +16,7 @@ namespace DreminKursovai.DB
         {
             this.conn = connection;
         }
-        public List<Options> SearchManufacturer(string searchh)
-        {
-            List<Options> list = new List<Options>();
-            string GH = $"SELECT * FROM Options o";
-            if (conn.OpenConnection())
-            {
-                using (var mv = conn.CreateCommand(GH))
-                {
-                    mv.Parameters.Add(new MySqlParameter("searchh", $"%{searchh}%"));
-                    using (var m = mv.ExecuteReader())
-                    {
-                        while (m.Read())
-                        {
-                            var options = new Options();
-                            options.Id = m.GetInt32("Id");
-                            options.Title = m.GetString("Title");
-                        }
-                    }
-                    conn.CloseConnection();
-                }
-            }
-            return list;
-        }
+        
         public bool Insert(Options options)
         {
             bool result = false;
