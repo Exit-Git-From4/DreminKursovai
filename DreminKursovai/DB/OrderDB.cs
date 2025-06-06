@@ -16,7 +16,48 @@ namespace DreminKursovai.DB
         {
             this.connection = db;
         }
-        
+
+        public List<Order> SearchOrder(string search)
+        {
+            List<Order> equipments = new();
+            List<EquipmentType> equipmentTypes = new();
+            string GG = $"SELECT * FROM `Order` o JOIN EquipmentType et ON o.EquipmentTypeId = et.Id WHERE o.Title LIKE @search";
+            if (connection.OpenConnection())
+            {
+                using (var mc = connection.CreateCommand(GG))
+                {
+                    mc.Parameters.Add(new MySqlParameter("search", $"%{search}%"));
+                    using (var dr = mc.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            var equipment = new Order();
+                            equipment.Id = dr.GetInt32("Id");
+                            equipment.Title = dr.GetString("Title");
+                            equipment.Model = dr.GetString("Model");
+                            equipment.OrderDate = dr.GetDateTime("OrderDate");
+                            equipment.Quantity = dr.GetInt32("Quantity");
+                            equipment.OrderStatus = dr.GetBoolean("OrderStatus");
+                            equipment.EquipmentTypeId = dr.GetInt32("EquipmentTypeId");
+
+                            var equipmentType = equipmentTypes.FirstOrDefault();
+                            if (equipmentType == null)
+                            {
+                                equipmentType = new EquipmentType();
+                                equipmentType.Id = equipment.EquipmentTypeId;
+                                equipmentType.Title = dr.GetString("Title");
+                                equipmentTypes.Add(equipmentType);
+                            }
+                            equipment.EquipmentType = equipmentType;
+                            equipments.Add(equipment);
+                        }
+                    }
+                    connection.CloseConnection();
+                }
+            }
+            return equipments;
+        }
+
         public bool Insert(Order order)
         {
             bool result = false;
@@ -140,6 +181,29 @@ namespace DreminKursovai.DB
                 catch (Exception ex) { MessageBox.Show(ex.Message); }
             }
             connection.CloseConnection( );
+            return result;
+        }
+
+        internal bool Remove(Order selectedOrder)
+        {
+            bool result = false;
+            if (connection == null)
+                return result;
+
+            if (connection.OpenConnection())
+            {
+                var mc = connection.CreateCommand($"delete from `Order` where `id` = {selectedOrder.Id}");
+                try
+                {
+                    mc.ExecuteNonQuery();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            connection.CloseConnection();
             return result;
         }
     }

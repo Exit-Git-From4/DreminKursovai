@@ -18,6 +18,7 @@ namespace DreminKursovai.Model
         public string Title { get; set; }
         public int Quantity { get; set; }
         public bool OrderStatus { get; set; }
+        public string orderstatuss {  get; set; }
         public int EquipmentTypeId { get; set; }
         public EquipmentType EquipmentType { get => equipmentType; set => equipmentType = value; }//Signal(); } }
     }

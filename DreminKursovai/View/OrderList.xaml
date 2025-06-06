@@ -7,10 +7,19 @@
         mc:Ignorable="d"
         Title="OrderList" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Поиск:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Width="150" Margin="5" VerticalAlignment="Center" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
         <ListView Grid.Row="1" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить" Command="{Binding Add}"/>
+                    <MenuItem Header="Удаление" Command="{Binding Delete}"/>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
@@ -20,7 +29,7 @@
                     <GridViewColumn Header="Модель" Width="100" DisplayMemberBinding="{Binding Model}"/>
                     <GridViewColumn Header="Дата заказа" Width="100" DisplayMemberBinding="{Binding OrderDate, StringFormat=dd.MM.yyyy}"/>
                     <GridViewColumn Header="Количество" Width="100" DisplayMemberBinding="{Binding Quantity}"/>
-                    <GridViewColumn Header="Статус заказа" Width="100" DisplayMemberBinding="{Binding OrderStatus}"/>
+                    <GridViewColumn Header="Статус заказа" Width="100" DisplayMemberBinding="{Binding orderstatuss}"/>
                 </GridView>
             </ListView.View>
         </ListView>
