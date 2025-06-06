@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DreminKursovai.View"
         mc:Ignorable="d"
-        Title="Окно с товарами" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="склад товаров" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
